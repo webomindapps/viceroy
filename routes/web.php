@@ -5,7 +5,10 @@ use App\Http\Controllers\frontend\RegistrationController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/',[RegistrationController::class,'welcome']);
+Route::get('/', [RegistrationController::class, 'index'])->name('staff_login');
+Route::post('/', [RegistrationController::class, 'authenticate']);
+Route::post('/logout', [RegistrationController::class, 'logout'])->name('logout');
+Route::get('/welcome',[RegistrationController::class,'welcome'])->name('welcome');
 Route::post('/AddGuest', [RegistrationController::class, 'store'])->name('guest.store');
 Route::get('guests/{id}/edit', [RegistrationController::class, 'editguests'])->name('guests.edit');
 Route::post('guests/{id}/edit', [RegistrationController::class, 'updateguests']);
@@ -27,7 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('guest/{id}/edit', [LoginController::class, 'editguests'])->name('guest.edit');
     Route::post('guest/{id}/edit', [LoginController::class, 'updateguests']);
     Route::get('/guest/document/{id}/delete', [LoginController::class, 'deleteDocument'])->name('guest.document.delete');
-    Route::get('guest/{id}/delete',[LoginController::class,'deleteguests'])->name('guest.delete');
+    Route::get('guest/{id}/delete', [LoginController::class, 'deleteguests'])->name('guest.delete');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/admin/filter-guests', [LoginController::class, 'filterGuests'])->name('admin.filter.guests');
 

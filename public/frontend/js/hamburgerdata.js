@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fetchUrl += `?`;
         if (currentDays !== null) fetchUrl += `days=${currentDays}&`;
         if (currentNationality) fetchUrl += `nationality=${currentNationality}&`;
-        if (isVIPFilterActive) fetchUrl += `vipdetails=1&`;
+        if (isVIPFilterActive) fetchUrl += `isvip=1&`;
         fetchUrl = fetchUrl.replace(/&$/, '');
 
         fetch(fetchUrl, {

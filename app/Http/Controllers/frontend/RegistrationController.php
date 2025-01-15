@@ -2,17 +2,38 @@
 
 namespace App\Http\Controllers\frontend;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\Document;
 use App\Models\Registration;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class RegistrationController extends Controller
 {
+    public function index()
+    {
+        return view('components.admin.staff_login');
+    }
 
+    public function authenticate(Request $request)
+    {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+        if (Auth::guard('staff')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+            return to_route('welcome');
+        }
+        return back()->with('error', 'We did not find any admin with these credentials.');
+    }
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('staff_login');
+    }
     public function welcome(Request $request)
     {
         $nationalities = DB::table('nationalities')->distinct()->get();
@@ -36,8 +57,8 @@ class RegistrationController extends Controller
             }
         }
 
-        if ($request->has('vipdetails') && $request->input('vipdetails') === '1') {
-            $registrations->whereNotNull('vipdetails')->where('vipdetails', '!=', '');
+        if ($request->has('isvip') && $request->input('isvip') === '1') {
+            $registrations->whereNotNull('isvip')->where('isvip', '!=', '');
         }
 
         $registrations = $registrations->orderBy('created_at', 'desc')->limit(5)->get();
@@ -52,13 +73,13 @@ class RegistrationController extends Controller
 
     public function store(Request $request)
     {
-       
+
         $validated = $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
             'phone' => 'required|string|max:15',
             'nationality' => 'required|string|max:255',
-        
+
         ]);
 
         $guest = Registration::create([
@@ -68,26 +89,28 @@ class RegistrationController extends Controller
             'address' => $request->address,
             'arrivingfrom' => $request->arrivingfrom,
             'datetime' => $request->datetime,
-            'purposeofvisit' =>$request->purposeofvisit,
+            'purposeofvisit' => $request->purposeofvisit,
             'depaturedate' => $request->depaturedate,
             'proceedingto' => $request->proceedingto,
             'email' => $request->email,
             'phone' => $validated['phone'],
             'nationality' => $validated['nationality'],
-            'passportno'=>$request->passportno,
-            'dateofissue'=>$request->dateofissue,
-            'placeofissue'=>$request->placeofissue,
-            'dateofexpiry'=>$request->dateofexpiry,
-            'dateofarrival'=>$request->dateofarrival,
-            'visano'=>$request->visano,
-            'placeofvisaissue'=>$request->placeofvisaissue,
-            'durationofstay'=>$request->durationofstay,
-            'dateofvisaissue'=>$request->dateofvisaissue,
-            'dateofvisaexpiry'=>$request->dateofvisaexpiry,
-            'employeed'=>$request->employeed,
+            'passportno' => $request->passportno,
+            'dateofissue' => $request->dateofissue,
+            'placeofissue' => $request->placeofissue,
+            'dateofexpiry' => $request->dateofexpiry,
+            'dateofarrival' => $request->dateofarrival,
+            'visano' => $request->visano,
+            'placeofvisaissue' => $request->placeofvisaissue,
+            'durationofstay' => $request->durationofstay,
+            'dateofvisaissue' => $request->dateofvisaissue,
+            'dateofvisaexpiry' => $request->dateofvisaexpiry,
+            'employeed' => $request->employeed,
             'roomno' => $request->roomno,
             'packno' => $request->packno,
             'mealplan' => $request->mealplan,
+            'isvip' => $request->has('isvip') ? 1 : 0,
+
         ]);
 
         if ($request->hasFile('image_url')) {
@@ -125,7 +148,7 @@ class RegistrationController extends Controller
             ]);
         }
 
-        return redirect('/')->with('success', 'Guest registration successful!');
+        return redirect('welcome')->with('success', 'Guest registration successful!');
     }
 
     private function storeVipSignature($base64Image)
@@ -202,7 +225,7 @@ class RegistrationController extends Controller
             'address' => $request->address,
             'arrivingfrom' => $request->arrivingfrom,
             'datetime' => $request->datetime,
-            'purposeofvisit' =>$request->purposeofvisit,
+            'purposeofvisit' => $request->purposeofvisit,
             'depaturedate' => $request->depaturedate,
             'proceedingto' => $request->proceedingto,
             'email' => $request->email,
@@ -211,15 +234,17 @@ class RegistrationController extends Controller
             'roomno' => $request->roomno,
             'packno' => $request->packno,
             'mealplan' => $request->mealplan,
-            'passportno'=>$request->passportno,
-            'dateofissue'=>$request->dateofissue,
-            'placeofissue'=>$request->placeofissue,
-            'dateofexpiry'=>$request->dateofexpiry,
-            'dateofarrival'=>$request->dateofarrival,
-            'visano'=>$request->visano,
-            'placeofvisaissue'=>$request->placeofvisaissue,
-            'durationofstay'=>$request->durationofstay,
-            'employeed'=>$request->employeed,
+            'passportno' => $request->passportno,
+            'dateofissue' => $request->dateofissue,
+            'placeofissue' => $request->placeofissue,
+            'dateofexpiry' => $request->dateofexpiry,
+            'dateofarrival' => $request->dateofarrival,
+            'visano' => $request->visano,
+            'placeofvisaissue' => $request->placeofvisaissue,
+            'durationofstay' => $request->durationofstay,
+            'employeed' => $request->employeed,
+            'isvip' => $request->has('isvip') ? 1 : 0,
+
         ]);
 
         if ($request->hasFile('image_url')) {

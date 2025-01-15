@@ -38,6 +38,7 @@ class Registration extends Model
         'packno',
         'manager_signature_image_url',
         'mealplan',
+        'isvip',
         'vipdetails',
         'signature_image_url',
     ];

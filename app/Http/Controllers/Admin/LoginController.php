@@ -137,6 +137,8 @@ class LoginController extends Controller
             'placeofvisaissue' => $request->placeofvisaissue,
             'durationofstay' => $request->durationofstay,
             'employeed' => $request->employeed,
+            'isvip' => $request->has('isvip') ? 1 : 0,
+
 
         ]);
 
@@ -191,7 +193,7 @@ class LoginController extends Controller
 
         $days = $request->input('days');
         $nationality = $request->input('nationality');
-        $is_vip = $request->input('is_vip') === '1';
+        $isvip = $request->input('isvip') === '1';
 
         $query = Registration::query();
 
@@ -206,9 +208,9 @@ class LoginController extends Controller
             $query->where('nationality', $nationality);
         }
 
-        if ($is_vip) {
+        if ($isvip) {
 
-            $query->whereNotNull('vipdetails')->where('vipdetails', '!=', '');
+            $query->whereNotNull('isvip')->where('isvip', '!=', '');
         }
 
         $guests = $query->latest()->get();

@@ -97,6 +97,14 @@
                             <option value="MAP" {{ $guest->mealplan == 'MAP' ? 'selected' : '' }}>MAP</option>
                         </select>
                     </div>
+                    <div class="col-lg-12 mb-3">
+                        <input type="checkbox" id="isvip" name="isvip" value="1"
+                            {{ old('isvip', $guest->isvip) == 0 ? 'checked' : '' }}>
+                        <label class="form-check-label" for="isvip">
+                            Is VIP
+                        </label>
+                    </div>
+
                     @if ($guest->nationality != 'India')
                         <div class="col-lg-6 mb-3">
                             <label for="passportno" class="form-label">Passport No</label>
@@ -252,4 +260,10 @@
             });
         });
     </script>
+    <style>
+        #isvip {
+            width: 16px;
+            height: 16px;
+        }
+    </style>
 </x-app-layout>

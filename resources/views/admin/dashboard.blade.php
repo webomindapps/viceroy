@@ -141,7 +141,7 @@
 
                 if (filters.days !== undefined) params.append('days', filters.days);
                 if (filters.nationality) params.append('nationality', filters.nationality);
-                if (filters.is_vip !== undefined) params.append('is_vip', filters.is_vip ? '1' : '0');
+                if (filters.is_vip !== undefined) params.append('isvip', filters.is_vip ? '1' : '0');
 
                 const queryString = params.toString();
                 const url = `{{ route('admin.filter.guests') }}?${queryString}`;

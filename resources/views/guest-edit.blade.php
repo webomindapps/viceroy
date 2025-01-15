@@ -23,7 +23,7 @@
 
                 <div class="bg-light p-4 rounded shadow">
                     <div class="col-lg-1 col-md-1 col-1 my-auto text-end">
-                        <a href="{{ url('/') }}" class="grc_btn">Back</a>
+                        <a href="{{ url('welcome') }}" class="grc_btn">Back</a>
                     </div>
                     <h3 class="text-center mb-4">Edit Guest Details</h3>
                     <form action="{{ route('guests.edit', $guest->id) }}" method="POST" enctype="multipart/form-data">
@@ -239,15 +239,23 @@
                                 </div>
                             @endforeach
                         </div>
-                        <!-- VIP Details -->
+                        <!-- Guest Details -->
+                        <div class="col-lg-12 mt-2">
+                            <input type="checkbox" id="isvip" name="isvip" value="1"
+                                {{ old('isvip', $guest->is_vip) == 0 ? 'checked' : '' }}>
+                            <label class="form-check-label text-white" for="isvip">
+                                Is VIP
+                            </label>
+                        </div>
+
                         <div class="mb-3">
-                            <label for="vipdetails" class="form-label">VIP Details</label>
+                            <label for="vipdetails" class="form-label">Guest Notes</label>
                             <div id="signature-pad" class="signature-pad">
                                 <canvas id="vipdetails-canvas" class="border" width="400"
                                     height="200"></canvas>
                             </div>
                             <button type="button" id="saveVipDetails" class="btn btn-primary mt-2">Save
-                                Vip details</button>
+                                Guest Notes</button>
                             <button type="button" class="btn btn-secondary mt-2"
                                 onclick="clearCanvas()">Clear</button>
                             <input type="hidden" name="vipdetails" id="vipdetails">

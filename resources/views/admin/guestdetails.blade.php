@@ -2,9 +2,9 @@
     <div class="container-fluid">
         @if ($guest->nationality != 'India')
             <div class="d-flex justify-content-end mt-2 mb-4">
-                <a href="{{route('admin.guest.download',$guest->id)}}" class="btn btn-primary">
+                <a href="{{ route('admin.guest.download', $guest->id) }}" class="btn btn-primary">
                     Download GRC
-                </a>                
+                </a>
             </div>
         @endif
         <div class="accordion" id="accordionExample">
@@ -87,13 +87,17 @@
                                     <td>{{ $guest->mealplan }}</td>
                                 </tr>
                                 <tr>
-                                    <td>VIP Details</td>
+                                    <td>Is VIP </td>
+                                    <td>{{ $guest->isvip ? 'False' : 'True' }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Guest Notes</td>
                                     <td>
                                         @if ($guest->vipdetails)
                                             <img src="{{ asset('storage/' . $guest->vipdetails) }}" alt="VIP Details"
                                                 class="img-fluid" width="400">
                                         @else
-                                            <p>No VIP details available</p>
+                                            <p>No Guest Notes available</p>
                                         @endif
                                     </td>
                                 </tr>

@@ -21,7 +21,6 @@
 
 
     <section class="main_content">
-        <!-- <video src="./assets/bg-video.mp4" class="banner_video"></video> -->
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 mb-2 mx-auto">
@@ -44,8 +43,12 @@
                                     alt="">
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-4 my-auto text-end">
-                            <a href="{{ url('/') }}" class="grc_btn">New GRC</a>
+                        <div class="col-lg-2 col-md-1 col-4 my-auto text-end">
+                            <a href="{{ url('welcome') }}" class="grc_btn">New GRC</a>
+
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-4 my-auto text-end">
+                            <a href="{{ url('logout') }}" class="grc_btn">Logout</a>
                         </div>
                     </div>
                 </div>
@@ -190,7 +193,8 @@
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="form-floating">
                                                         <input type="text" name="phone" class="form-control"
-                                                            id="phone" placeholder="Phone" minlength="10" maxlength="15"
+                                                            id="phone" placeholder="Phone" minlength="10"
+                                                            maxlength="15"
                                                             oninput="this.value = this.value.replace(/\D/g, '')"
                                                             autocomplete="off">
                                                         <label for="phone">Phone No<span
@@ -253,8 +257,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 mt-2">
-                                                    <input type="checkbox" id="flexCheckChecked">
-                                                    <label class="form-check-label text-white" for="flexCheckChecked">
+                                                    <input type="checkbox" id="isvip" name="isvip"
+                                                        value="0">
+                                                    <label class="form-check-label text-white" for="isvip">
                                                         Is VIP
                                                     </label>
                                                 </div>
@@ -696,20 +701,20 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div>
-                        <h5 class="modal-title" id="vipModalLabel">VIP Instructions</h5>
-                        <p class="mb-0">Please write who this is and if they have any special instructions apart from
-                            VIP protocol.</p>
+                        <h5 class="modal-title" id="vipModalLabel">Guest Notes</h5>
+                        <p class="mb-0">Notes.</p>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="clearVipDetails" class="btn btn-warning">Clear</button>
+                    <button type="button" id="saveVipDetails" class="btn btn-primary">Save Details</button>
                 </div>
                 <div class="modal-body">
                     <canvas id="signature-pad_vip" width="700" height="300"
                         style="border: 1px solid #000;"></canvas>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" id="clearVipDetails" class="btn btn-warning">Clear</button>
-                    <button type="button" id="saveVipDetails" class="btn btn-primary">Save VIP Details</button>
-                </div>
+               
             </div>
         </div>
     </div>
@@ -719,11 +724,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="signatureDisplayModalLabel">VIP Details</h5>
+                    <h5 class="modal-title" id="signatureDisplayModalLabel">Guest Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img id="displaySignatureImage" src="" alt="VIP Signature"
+                    <img id="displaySignatureImage" src="" alt="Guest Notes"
                         style="max-width: 100%; border: 1px solid #000;">
                 </div>
             </div>
@@ -771,13 +776,15 @@
                 <div class="modal-body">
                     <div class="man-SigPad mb-4">
                         <div class="sig sigWrapper mx-auto">
-                            <canvas class="pad" width="400" height="180" id="manager-signature-pad"></canvas>
+                            <canvas class="pad" width="400" height="180"
+                                id="manager-signature-pad"></canvas>
                             <input type="hidden" name="managersignature" id="managersignature">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" id="clearManagerSignature" class="btn btn-warning">Clear</button>
-                        <button type="button" id="saveManagerSignature" class="btn btn-primary">Save Signature</button>
+                        <button type="button" id="saveManagerSignature" class="btn btn-primary">Save
+                            Signature</button>
                     </div>
                 </div>
             </div>
@@ -1233,10 +1240,10 @@
             vipDeleteIcon.style.display = 'none';
             vipButton.style.display = 'inline-block';
             vipSignatureInput.value = "";
-            const vipCheckbox = document.getElementById('flexCheckChecked');
-            if (vipCheckbox) {
-                vipCheckbox.checked = false;
-            }
+            // const vipCheckbox = document.getElementById('flexCheckChecked');
+            // if (vipCheckbox) {
+            //     vipCheckbox.checked = true;
+            // }
         }
         saveVipButton.addEventListener('click', () => {
             const dataURL = vipCanvas.toDataURL('image/png');
@@ -1251,11 +1258,11 @@
             displaySignatureImage.src = dataURL;
             displaySignatureImage.style.display = 'block';
 
-            const vipCheckbox = document.getElementById(
-                'flexCheckChecked');
-            if (vipCheckbox) {
-                vipCheckbox.checked = true;
-            }
+            // const vipCheckbox = document.getElementById(
+            //     'flexCheckChecked');
+            // if (vipCheckbox) {
+            //     vipCheckbox.checked = flase;
+            // }
         });
 
 
@@ -1454,6 +1461,33 @@
             group.forEach(button => button.classList.remove('active-filter'));
             element.classList.add('active-filter');
         }
+
+        function calculateDuration() {
+            const arrivalInput = document.getElementById('datetime');
+            const departureInput = document.getElementById('depaturedate');
+            const durationInput = document.getElementById('durationofstay');
+
+            // Get the values from the inputs
+            const arrivalDateTime = new Date(arrivalInput.value);
+            const departureDate = new Date(departureInput.value);
+
+            if (arrivalInput.value && departureInput.value) {
+                // Calculate the difference in time
+                const timeDifference = departureDate - arrivalDateTime;
+                const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)); // Convert to days
+
+                // Update the Duration Of Stay field
+                if (daysDifference >= 0) {
+                    durationInput.value = daysDifference + " day(s)";
+                } else {
+                    durationInput.value = "Invalid dates";
+                }
+            }
+        }
+
+        // Attach event listeners to calculate duration when inputs change
+        document.getElementById('datetime').addEventListener('change', calculateDuration);
+        document.getElementById('depaturedate').addEventListener('change', calculateDuration);
     </script>
 </body>
 
