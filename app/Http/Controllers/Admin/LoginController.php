@@ -227,4 +227,19 @@ class LoginController extends Controller
 
         return $pdf->stream('Guests.pdf');
     }
+
+    public function downloadformb($id)
+    {
+        $guests = Registration::with('documents')->find($id);
+
+        if (!$guests) {
+            return redirect()->back()->with('error', 'Guest not found.');
+        }
+
+        $pdf = Pdf::loadView('admin.pdfb', [
+            'guests' => $guests,
+        ]);
+
+        return $pdf->stream('Guests.pdf');
+    }
 }

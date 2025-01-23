@@ -21,9 +21,6 @@
         </div>
 
 
-
-
-
         <div class="container-fluid">
             <div class="row pt-3 pb-2 border-bottom">
                 <div class="col-lg-4">
@@ -119,6 +116,12 @@
                                                     <i class='bx bx-trash-alt'></i>
                                                     Delete
                                                 </a>
+                                                @if ($guest->nationality != 'India')
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('admin.downloadformb', $guest->id) }}">
+                                                        <i class=" bx bx-download"></i> Download Form B
+                                                    </a>
+                                                @endif
                                             </li>
                                         </ul>
                                     </div>

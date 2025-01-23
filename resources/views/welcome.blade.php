@@ -269,7 +269,7 @@
                                                     <div class="col lg-3">
                                                         <button id="vipButton" class="btn btn-primary"
                                                             data-bs-toggle="modal" data-bs-target="#vipModal">
-                                                            VIP
+                                                            Notes
                                                         </button>
                                                         <div class="file-icon-container"
                                                             style="position: relative; display: inline-block;">

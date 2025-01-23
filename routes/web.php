@@ -33,5 +33,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('guest/{id}/delete', [LoginController::class, 'deleteguests'])->name('guest.delete');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/admin/filter-guests', [LoginController::class, 'filterGuests'])->name('admin.filter.guests');
+    Route::get('admin/downloadformb/{id}',[LoginController::class,'downloadformb'])->name('admin.downloadformb');
 
 });
