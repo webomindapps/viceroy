@@ -714,7 +714,7 @@
                     <canvas id="signature-pad_vip" width="700" height="300"
                         style="border: 1px solid #000;"></canvas>
                 </div>
-               
+
             </div>
         </div>
     </div>
@@ -910,12 +910,9 @@
                     $("#nationality").after(
                         "<span class='error' style='color:black; font-size: 13px;'>Please select a nationality</span>"
                     );
-                }
-                if (current === 1 && nationality !== "India") {
-                    current_fs.find(
-                        " #arrivingfrom , #address , #datetime , #purposeofvisit  , #proceedingto "
-                    ).each(
-                        function() {
+                } else if (nationality !== "India") {
+                    current_fs.find("#arrivingfrom, #address, #datetime, #purposeofvisit, #proceedingto")
+                        .each(function() {
                             if ($(this).val().trim() === "") {
                                 isValid = false;
                                 var fieldLabel = $(this).attr("placeholder") || $(this).closest(
@@ -925,11 +922,12 @@
                                     fieldLabel + " field is required</span>");
                             }
                         });
+
                     var depaturedate = $("#depaturedate").val();
                     if (depaturedate === null || depaturedate === "") {
                         isValid = false;
                         $("#depaturedate").after(
-                            "<span class='error' style='color:black; font-size: 13px;'>Please Enter The depature date</span>"
+                            "<span class='error' style='color:black; font-size: 13px;'>Please enter the departure date</span>"
                         );
                     }
                 }

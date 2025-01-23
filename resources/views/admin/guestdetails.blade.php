@@ -1,12 +1,10 @@
 <x-app-layout>
     <div class="container-fluid">
-        @if ($guest->nationality != 'India')
-            <div class="d-flex justify-content-end mt-2 mb-4">
-                <a href="{{ route('admin.guest.download', $guest->id) }}" class="btn btn-primary">
-                    Download GRC
-                </a>
-            </div>
-        @endif
+        <div class="d-flex justify-content-end mt-2 mb-4">
+            <a href="{{ route('admin.guest.download', $guest->id) }}" class="btn btn-primary">
+                Download GRC
+            </a>
+        </div>
         <div class="accordion" id="accordionExample">
             <!-- Guest Details Section -->
             <div class="accordion-item">
@@ -94,7 +92,7 @@
                                     <td>Guest Notes</td>
                                     <td>
                                         @if ($guest->vipdetails)
-                                            <img src="{{ asset('storage/' . $guest->vipdetails) }}" alt="VIP Details"
+                                            <img src="{{ asset('storage/'.$guest->vipdetails) }}" alt="VIP Details"
                                                 class="img-fluid" width="400">
                                         @else
                                             <p>No Guest Notes available</p>
