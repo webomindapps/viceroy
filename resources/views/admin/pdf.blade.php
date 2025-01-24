@@ -1,169 +1,242 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Guest Details</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid rgb(228, 218, 218);
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .logo-container {
+            width: 30%;
+            background: #ffffff;
+            padding: 1px;
+            text-align: left;
+        }
+
+        .details-container {
+            width: 70%;
+            font-size: 12px;
+            color: #080808;
+            padding: 1px;
+            margin-left: 600px;
+            /* Adjusting this if needed */
+        }
+
+        .heading {
+            text-align: center;
+            padding: 5px 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .date-container {
+            text-align: right;
+            /* Aligning text to the right */
+            padding: 10px 0;
+            font-size: 16px;
+        }
+
+        .logo-date {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .signature-section {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
-    <table style="font-size: 12px; border: 1px double #433e1d; padding: 5px; width: 80%; height:90%" cellspacing="2"
-        cellpadding="2" align="center">
-        <tbody>
-            <tr>
-                <td>
-                    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <td style="width: 30%; background: #ffffff; padding: 2px; text-align: center;">
-                                    <img style="object-fit: contain;" src="{{ public_path('admin/logo.png') }}"
-                                        height="90" />
-                                </td>
-                                <td style="width: 70%; font-size: 18px; color: #000; padding: 2px; text-align: right;">
-                                    <div>Date: {{ \Carbon\Carbon::parse($guests->datetime)->format('d-m-Y') }}</div>
-                                    <div>GRC No: {{ $guests->id }}</div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td style="padding: 10px;" valign="top">
-                    <table border="0" width="100%" cellspacing="2" cellpadding="2">
-                        <tbody>
-                            <tr>
-                                <td
-                                    style="font-weight: 500; font-size: 18px; text-align: center; color: #000000; padding-bottom: 8px;">
-                                    ViceRoy Form B
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" cellspacing="2" cellpadding="2">
-                                        <tbody>
-                                            <tr>
-                                                <td valign="top">
-                                                    <table width="100%" cellspacing="2" cellpadding="2">
-                                                        <tbody>
-                                                            <tr style="color: #484848; font-size: 16px;">
-                                                                <td style="border-right: #ebebeb solid 1px; border-bottom: 1px solid #ebebeb; padding: 10px;"
-                                                                    width="30%">
-                                                                    <strong>Guest Details:</strong>
-                                                                </td>
-                                                                <td style="padding: 5px; border-bottom: 1px solid #ebebeb;"
-                                                                    width="70%"></td>
-                                                            </tr>
-                                                            <tr style="color: #484848; font-size: 16px;">
-                                                                <td
-                                                                    style="border-bottom: 1px solid #ebebeb; border-right: #ebebeb solid 1px; padding: 10px;">
-                                                                    <strong>Name</strong>
-                                                                </td>
-                                                                <td
-                                                                    style="padding: 5px; border-bottom: 1px solid #ebebeb;">
-                                                                    {{ $guests->firstname . ' ' . $guests->lastname }}
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="color: #484848; font-size: 16px;">
-                                                                <td
-                                                                    style="border-bottom: 1px solid #ebebeb; border-right: #ebebeb solid 1px; padding: 10px;">
-                                                                    <strong>Nationality</strong>
-                                                                </td>
-                                                                <td
-                                                                    style="padding: 5px; border-bottom: 1px solid #ebebeb;">
-                                                                    {{ $guests->nationality }}
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="color: #484848; font-size: 16px;">
-                                                                <td
-                                                                    style="border-right: #ebebeb solid 1px; border-bottom: 1px solid #ebebeb; padding: 10px;">
-                                                                    <strong>Passport Details</strong>
-                                                                </td>
-                                                                <td
-                                                                    style="padding: 5px; border-bottom: 1px solid #ebebeb;">
-                                                                    {{ $guests->passportno . ',' . \Carbon\Carbon::parse($guests->dateofissue)->format('d-m-Y') . ',' . $guests->placeofissue }}
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="color: #484848; font-size: 16px;">
-                                                                <td
-                                                                    style="border-right: #ebebeb solid 1px; border-bottom: 1px solid #ebebeb; padding: 10px;">
-                                                                    <strong>Address In India</strong>
-                                                                </td>
-                                                                <td
-                                                                    style="padding: 5px; border-bottom: 1px solid #ebebeb;">
-                                                                    {{ $guests->address }}
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="color: #484848; font-size: 16px;">
-                                                                <td
-                                                                    style="border-right: #ebebeb solid 1px; border-bottom: 1px solid #ebebeb; padding: 10px;">
-                                                                    <strong>Date Of Arrival To India</strong>
-                                                                </td>
-                                                                <td
-                                                                    style="padding: 5px; border-bottom: 1px solid #ebebeb;">
-                                                                    {{ \Carbon\Carbon::parse($guests->dateofarrival)->format('d-m-Y') }}
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="color: #484848; font-size: 16px;">
-                                                                <td style="border-right: #ebebeb solid 1px; border-bottom: 1px solid #ebebeb; padding: 10px;"
-                                                                    width="30%">
-                                                                    <strong>Employeed In India?</strong>
-                                                                </td>
-                                                                <td
-                                                                    style="padding: 5px; border-bottom: 1px solid #ebebeb;">
-                                                                    {{ $guests->employeed }}
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="color: #484848; font-size: 16px;">
-                                                                <td style="border-right: #ebebeb solid 1px; border-bottom: 1px solid #ebebeb; padding: 10px;"
-                                                                    width="30%">
-                                                                    <strong>Duration Of Stay</strong>
-                                                                </td>
-                                                                <td
-                                                                    style="padding: 5px; border-bottom: 1px solid #ebebeb;">
-                                                                    {{ $guests->durationofstay }}
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="color: #484848; font-size: 16px;">
-                                                                <td
-                                                                    style="border-right: #ebebeb solid 1px; border-bottom: 1px solid #ebebeb; padding: 10px;">
-                                                                    <strong>User Signature</strong>
-                                                                </td>
-                                                                <td
-                                                                    style="padding: 5px; border-bottom: 1px solid #ebebeb;">
-                                                                    <img src="{{ public_path('storage/' . $guests->signature_image_url) }}"
-                                                                        height="150" />
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="color: #484848; font-size: 16px;">
-                                                                <td
-                                                                    style="border-right: #ebebeb solid 1px; border-bottom: 1px solid #ebebeb; padding: 10px;">
-                                                                    <strong>Manager Signature</strong>
-                                                                </td>
-                                                                <td
-                                                                    style="padding: 5px; border-bottom: 1px solid #ebebeb;">
-                                                                    <img src="{{ public_path('storage/' . $guests->manager_signature_image_url) }}"
-                                                                        height="150" />
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
+    <div class="container-fluid">
+        <div class="logo-date">
+            <div class="logo-container">
+                <img style="object-fit: contain;" src="{{ public_path('admin/logo.png') }}" height="200" width="150"
+                    alt="Logo" />
+            </div>
+            <div class="details-container">
+                <div class="date-container">
+                    Date: {{ \Carbon\Carbon::parse($guests->datetime)->format('d-m-Y') }}
+                </div>
+                <div class="date-container">
+                    GRC No: {{ $guests->id }}
+                </div>
+            </div>
+        </div>
+        <div class="heading">Guest Details</div>
 
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <table>
+            <tbody>
+                <tr>
+                    <td>First Name</td>
+                    <td>{{ $guests->firstname }}</td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td>{{ $guests->lastname }}</td>
+                </tr>
+                <tr>
+                    <td>Date of Birth</td>
+                    <td>{{ \Carbon\Carbon::parse($guests->dob)->format('d-m-Y') }}</td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td>{{ $guests->address }}</td>
+                </tr>
+                <tr>
+                    <td>Arriving From</td>
+                    <td>{{ $guests->arrivingfrom }}</td>
+                </tr>
+                <tr>
+                    <td>Date & Time</td>
+                    <td>{{ \Carbon\Carbon::parse($guests->datetime)->format('d-m-Y H:i A') }}</td>
+                </tr>
+                <tr>
+                    <td>Purpose of Visit</td>
+                    <td>{{ $guests->purposeofvisit }}</td>
+                </tr>
+                <tr>
+                    <td>Departure Date</td>
+                    <td>{{ \Carbon\Carbon::parse($guests->depaturedate)->format('d-m-Y') }}</td>
+                </tr>
+                <tr>
+                    <td>Proceeding To</td>
+                    <td>{{ $guests->proceedingto }}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{ $guests->email }}</td>
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td>{{ $guests->phone }}</td>
+                </tr>
+                <tr>
+                    <td>Nationality</td>
+                    <td>{{ $guests->nationality }}</td>
+                </tr>
+                <tr>
+                    <td>Room No</td>
+                    <td>{{ $guests->roomno }}</td>
+                </tr>
+                <tr>
+                    <td>Pack No</td>
+                    <td>{{ $guests->packno }}</td>
+                </tr>
+                <tr>
+                    <td>Meal Plan</td>
+                    <td>{{ $guests->mealplan }}</td>
+                </tr>
+                <tr>
+                    <td>Is VIP</td>
+                    <td>{{ $guests->isvip ? 'True' : 'False' }}</td>
+                </tr>
+                <tr>
+                    <td>Guest Notes</td>
+                    <td>
+                        @if ($guests->vipdetails)
+                            <img src="{{ public_path('storage/' . $guests->vipdetails) }}" alt="VIP Details"
+                                class="img-fluid" width="300" height="300">
+                        @else
+                            <p>No Guest Notes available</p>
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <td>Foreigner Details</td>
+                </tr>
+                @if ($guests->nationality != 'India')
+                    <tr>
+                        <td>Passport No</td>
+                        <td>{{ $guests->passportno }}</td>
+                    </tr>
+                    <tr>
+                        <td>Date Of Issue</td>
+                        <td>{{ $guests->dateofissue }}</td>
+                    </tr>
+                    <tr>
+                        <td>Place Of Issue</td>
+                        <td>{{ $guests->placeofissue }}</td>
+                    </tr>
+                    <tr>
+                        <td>Date Of Expiry</td>
+                        <td>{{ $guests->dateofexpiry }}</td>
+                    </tr>
+                    <tr>
+                        <td>Date Of Arrival</td>
+                        <td>{{ $guests->dateofarrival }}</td>
+                    </tr>
+                    <tr>
+                        <td>Visa Number</td>
+                        <td>{{ $guests->visano }}</td>
+                    </tr>
+                    <tr>
+                        <td>Place Of Visa Issue</td>
+                        <td>{{ $guests->placeofvisaissue }}</td>
+                    </tr>
+                    <tr>
+                        <td>Duration Of Stay</td>
+                        <td>{{ $guests->durationofstay }}</td>
+                    </tr>
+                    <tr>
+                        <td>Date of Visa Issue</td>
+                        <td>{{ $guests->dateofvisaissue }}</td>
+                    </tr>
+                    <tr>
+                        <td>Date Of Visa Expiry</td>
+                        <td>{{ $guests->dateofvisaexpiry }}</td>
+                    </tr>
+                    <tr>
+                        <td>Employeed in India?</td>
+                        <td>{{ $guests->employeed }}</td>
+                    </tr>
+                @endif
+            </tbody>
+        </table>
+    </div>
 
+    <div class="signature-section">
+        <div class="section-title p-2 fw-semibold fs-5 bg-light">
+            <span>Signature</span>
+        </div>
+        @if ($guests->signature_image_url)
+            <img src="{{ public_path('storage/' . $guests->signature_image_url) }}" alt="Signature Image"
+                class="img-fluid" width="300" height="300">
+        @else
+            <p>No signature available</p>
+        @endif
+
+        <div class="section-title p-2 fw-semibold fs-5 bg-light">
+            <span>Manager Signature</span>
+        </div>
+        @if ($guests->manager_signature_image_url)
+            <img src="{{ public_path('storage/' . $guests->manager_signature_image_url) }}"
+                alt="Manager Signature Image" class="img-fluid" width="300" height="300">
+        @else
+            <p>No signature available</p>
+        @endif
+    </div>
 </body>
 
 </html>
