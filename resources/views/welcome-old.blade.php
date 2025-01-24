@@ -14,12 +14,7 @@
     <link href="{{ asset('frontend/css/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="{{ asset('frontend/css/jquery.signaturepad.css') }}" rel="stylesheet">
-    <style>
-        .vip-sig-wrapper {
-            height: 312px !important;
-            width: 622px !important;
-        }
-    </style>
+
 </head>
 
 <body>
@@ -48,8 +43,11 @@
                                     alt="">
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-4 my-auto text-end">
+                        <div class="col-lg-2 col-md-1 col-4 my-auto text-end">
                             <a href="{{ url('welcome') }}" class="grc_btn">New GRC</a>
+
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-4 my-auto text-end">
                             <a href="{{ url('logout') }}" class="grc_btn">Logout</a>
                         </div>
                     </div>
@@ -185,8 +183,7 @@
                                                     <div class="form-floating">
                                                         <input type="email" name="email" class="form-control"
                                                             id="email" placeholder="Email ID" autocomplete="off">
-                                                        <label for="email">Email ID<span
-                                                                style="color: red;">*</span></label>
+                                                        <label for="email">Email ID</label>
                                                         @error('email')
                                                             <span
                                                                 style="font-size:13px;color:#ffff;">{{ $message }}</span>
@@ -281,7 +278,7 @@
                                                                 onclick="showSignatureModal()"></i>
                                                             <i id="vipDeleteIcon" class="fa-solid fa-delete-left"
                                                                 style="font-size: 24px; display: none; cursor: pointer; color: rgb(197, 71, 83); position: absolute; top: -1px; right: -15px; transform: translate(50%, -50%);"
-                                                                ></i>
+                                                                onclick="deleteVipSignature()"></i>
                                                         </div>
 
                                                     </div>
@@ -714,13 +711,10 @@
                     <button type="button" id="saveVipDetails" class="btn btn-primary">Save Details</button>
                 </div>
                 <div class="modal-body">
-                    <div class="vip-pad mb-4">
-                        <div class="sig sigWrapper mx-auto vip-sig-wrapper">
-                            <canvas class="pad" width="620" height="310" id="vip-pad"></canvas>
-                            <input type="hidden" name="vipdetails" id="vipDetailsInput" value="" />
-                        </div>
-                    </div>
+                    <canvas id="signature-pad_vip" width="700" height="300"
+                        style="border: 1px solid #000;"></canvas>
                 </div>
+               
             </div>
         </div>
     </div>
@@ -751,10 +745,6 @@
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" id="clearUserSignature" class="btn btn-warning">Clear</button>
-                    <button type="button" id="saveUserSignature" class="btn btn-primary">Save Signature</button>
-                </div>
                 <div class="modal-body">
                     <div class="user-SigPad mb-4">
                         <div class="sig sigWrapper mx-auto">
@@ -763,7 +753,10 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="modal-footer">
+                    <button type="button" id="clearUserSignature" class="btn btn-warning">Clear</button>
+                    <button type="button" id="saveUserSignature" class="btn btn-primary">Save Signature</button>
+                </div>
             </div>
         </div>
     </div>
@@ -780,11 +773,6 @@
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" id="clearManagerSignature" class="btn btn-warning">Clear</button>
-                    <button type="button" id="saveManagerSignature" class="btn btn-primary">Save
-                        Signature</button>
-                </div>
                 <div class="modal-body">
                     <div class="man-SigPad mb-4">
                         <div class="sig sigWrapper mx-auto">
@@ -793,7 +781,11 @@
                             <input type="hidden" name="managersignature" id="managersignature">
                         </div>
                     </div>
-
+                    <div class="modal-footer">
+                        <button type="button" id="clearManagerSignature" class="btn btn-warning">Clear</button>
+                        <button type="button" id="saveManagerSignature" class="btn btn-primary">Save
+                            Signature</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -918,9 +910,12 @@
                     $("#nationality").after(
                         "<span class='error' style='color:black; font-size: 13px;'>Please select a nationality</span>"
                     );
-                } else if (nationality !== "India") {
-                    current_fs.find("#arrivingfrom, #address, #datetime, #purposeofvisit, #proceedingto")
-                        .each(function() {
+                }
+                if (current === 1 && nationality !== "India") {
+                    current_fs.find(
+                        " #arrivingfrom , #address , #datetime , #purposeofvisit  , #proceedingto "
+                    ).each(
+                        function() {
                             if ($(this).val().trim() === "") {
                                 isValid = false;
                                 var fieldLabel = $(this).attr("placeholder") || $(this).closest(
@@ -930,12 +925,11 @@
                                     fieldLabel + " field is required</span>");
                             }
                         });
-
                     var depaturedate = $("#depaturedate").val();
                     if (depaturedate === null || depaturedate === "") {
                         isValid = false;
                         $("#depaturedate").after(
-                            "<span class='error' style='color:black; font-size: 13px;'>Please enter the departure date</span>"
+                            "<span class='error' style='color:black; font-size: 13px;'>Please Enter The depature date</span>"
                         );
                     }
                 }
@@ -1139,6 +1133,149 @@
         });
     </script>
     <script>
+        const vipCanvas = document.getElementById('signature-pad_vip');
+        const vipCtx = vipCanvas.getContext('2d');
+        const vipSignatureInput = document.getElementById('vipDetailsInput');
+        const saveVipButton = document.getElementById('saveVipDetails');
+        const clearVipButton = document.getElementById('clearVipDetails');
+        const vipButton = document.getElementById('vipButton');
+        const vipFileIcon = document.getElementById('vipFileIcon');
+        const displaySignatureImage = document.getElementById('displaySignatureImage');
+
+        let drawingVip = false;
+        let lastX_Vip, lastY_Vip;
+
+        function getPositionVip(event) {
+            const rect = vipCanvas.getBoundingClientRect();
+            const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+            const clientY = event.touches ? event.touches[0].clientY : event.clientY;
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        function startDrawingVip(event) {
+            event.preventDefault();
+            drawingVip = true;
+            const {
+                x,
+                y
+            } = getPositionVip(event);
+            lastX_Vip = x;
+            lastY_Vip = y;
+            vipCtx.beginPath();
+        }
+
+        function stopDrawingVip() {
+            drawingVip = false;
+            vipCtx.closePath();
+        }
+
+        function drawVip(event) {
+            if (!drawingVip) return;
+            const {
+                x,
+                y
+            } = getPositionVip(event);
+
+            const pressure = Math.max(event.pressure || 0.5, 0.1);
+            vipCtx.lineWidth = pressure * 5;
+
+
+            vipCtx.lineTo(x, y);
+            vipCtx.strokeStyle = "#000";
+            vipCtx.lineJoin = "round";
+            vipCtx.stroke();
+            lastX_Vip = x;
+            lastY_Vip = y;
+        }
+
+
+        function clearCanvasVip() {
+            vipCtx.clearRect(0, 0, vipCanvas.width, vipCanvas.height);
+        }
+
+        vipCanvas.addEventListener('mousedown', startDrawingVip, false);
+        vipCanvas.addEventListener('mouseup', stopDrawingVip, false);
+        vipCanvas.addEventListener('mousemove', drawVip, false);
+
+        vipCanvas.addEventListener('touchstart', startDrawingVip, false);
+        vipCanvas.addEventListener('touchend', stopDrawingVip, false);
+        vipCanvas.addEventListener('touchmove', drawVip, false);
+
+        vipCanvas.addEventListener('pointerdown', (event) => {
+            if (event.pointerType === 'pen') {
+                startDrawingVip(event);
+            }
+        }, false);
+
+        vipCanvas.addEventListener('pointerup', (event) => {
+            if (event.pointerType === 'pen') {
+                stopDrawingVip();
+            }
+        }, false);
+
+        vipCanvas.addEventListener('pointermove', (event) => {
+            if (event.pointerType === 'pen') {
+                drawVip(event);
+            }
+        }, false);
+
+
+        // Clear Button Functionality
+        clearVipButton.addEventListener('click', () => {
+            clearCanvasVip();
+            vipSignatureInput.value = "";
+            displaySignatureImage.style.display = 'none';
+            vipButton.style.display = 'inline-block';
+            vipFileIcon.style.display = 'none';
+        });
+
+        function deleteVipSignature() {
+            clearCanvasVip();
+
+            displaySignatureImage.style.display = 'none';
+            vipFileIcon.style.display = 'none';
+            vipDeleteIcon.style.display = 'none';
+            vipButton.style.display = 'inline-block';
+            vipSignatureInput.value = "";
+            // const vipCheckbox = document.getElementById('flexCheckChecked');
+            // if (vipCheckbox) {
+            //     vipCheckbox.checked = true;
+            // }
+        }
+        saveVipButton.addEventListener('click', () => {
+            const dataURL = vipCanvas.toDataURL('image/png');
+            vipSignatureInput.value = dataURL;
+            vipButton.style.display = 'none';
+            vipFileIcon.style.display = 'inline-block';
+            vipDeleteIcon.style.display = 'inline-block';
+
+            const modal = bootstrap.Modal.getInstance(document.getElementById('vipModal'));
+            modal.hide();
+
+            displaySignatureImage.src = dataURL;
+            displaySignatureImage.style.display = 'block';
+
+            // const vipCheckbox = document.getElementById(
+            //     'flexCheckChecked');
+            // if (vipCheckbox) {
+            //     vipCheckbox.checked = flase;
+            // }
+        });
+
+
+
+        clearVipButton.addEventListener('click', () => {
+            clearCanvasVip();
+            vipSignatureInput.value = "";
+            displaySignatureImage.style.display = 'none';
+            vipButton.style.display = 'inline-block';
+            vipFileIcon.style.display = 'none';
+        });
+
+
         function showSignatureModal() {
             const signatureModal = new bootstrap.Modal(document.getElementById('signatureDisplayModal'));
             signatureModal.show();
@@ -1148,59 +1285,6 @@
 
 
     <script>
-        $(document).ready(function() {
-            const userFileIcon = document.getElementById('userFileIcon');
-            const vipSignatureInput = document.getElementById('vipDetailsInput');
-            const vipButton = document.getElementById('vipButton');
-            const vipFileIcon = document.getElementById('vipFileIcon');
-            const displaySignatureImage = document.getElementById('displaySignatureImage');
-
-            const vipSigPad = $(".vip-pad").signaturePad({
-                drawOnly: true,
-                defaultAction: 'drawIt',
-                penColour: '#000',
-                output: '#signature',
-                lineTop: 250
-            });
-
-            $("#saveVipDetails").click(function() {
-                const canvas = document.querySelector("#vip-pad");
-                const dataURL = canvas.toDataURL("image/png");
-                vipSignatureInput.value = dataURL;
-
-                vipButton.style.display = 'none';
-                vipFileIcon.style.display = 'inline-block';
-                vipDeleteIcon.style.display = 'inline-block';
-
-                displaySignatureImage.src = dataURL;
-                displaySignatureImage.style.display = 'block';
-                const modal = bootstrap.Modal.getInstance(document.getElementById('vipModal'));
-                modal.hide();
-
-                vipSigPad.clearCanvas();
-            });
-
-            $("#clearVipDetails").click(function() {
-                vipSigPad.clearCanvas();
-                userSignatureInput.value = "";
-                $("#removeUserSignature").hide();
-            });
-            $("#vipDeleteIcon").click(function() {
-                displaySignatureImage.style.display = 'none';
-                vipFileIcon.style.display = 'none';
-                vipDeleteIcon.style.display = 'none';
-                vipButton.style.display = 'inline-block';
-                vipSignatureInput.value = "";   
-            });
-
-            userFileIcon.addEventListener('click', () => {
-                const modal = new bootstrap.Modal(document.getElementById('userSignatureViewModal'));
-                const viewImage = document.getElementById('viewUserSignatureImage');
-                viewImage.src = userSignatureInput.value;
-
-                modal.show();
-            });
-        });
         $(document).ready(function() {
             const userFileIcon = document.getElementById('userFileIcon');
             const displayUserSignatureImage = document.getElementById('displayUserSignatureImage');

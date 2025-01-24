@@ -260,7 +260,7 @@
                                 onclick="clearCanvas()">Clear</button>
                             <input type="hidden" name="vipdetails" id="vipdetails">
                             <img id="vipSignatureImage"
-                                src="{{ $guest->vipdetails ? asset('storage/' . $guest->vipdetails) : '' }}"
+                                src="{{ $guest->vipdetails ? asset($guest->vipdetails) : '' }}"
                                 alt="VIP Signature" class="img-fluid mt-3"
                                 style="display: {{ $guest->vipdetails ? 'block' : 'none' }};" width="400">
                             <button type="button" id="removeFile" class="btn btn-danger mt-2"
