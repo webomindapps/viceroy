@@ -134,6 +134,46 @@
                                                             </tr>
                                                             <tr style="color: #484848;">
                                                                 <td style="padding: 3px;">
+                                                                    <strong>Arrived From</strong>
+                                                                </td>
+                                                                <td style="padding: 3px;">
+                                                                    <input type="text"
+                                                                        style="width: 100%; height: 20px; font-size: 10px;"
+                                                                        value="{{ $guests->arrivingfrom }}" readonly>
+                                                                </td>
+                                                            </tr>
+                                                            <tr style="color: #484848;">
+                                                                <td style="padding: 3px;">
+                                                                    <strong>Purpose of visit</strong>
+                                                                </td>
+                                                                <td style="padding: 3px;">
+                                                                    <input type="text"
+                                                                        style="width: 100%; height: 20px; font-size: 10px;"
+                                                                        value="{{ $guests->purposeofvisit }}" readonly>
+                                                                </td>
+                                                            </tr>
+                                                            <tr style="color: #484848;">
+                                                                <td style="padding: 3px;">
+                                                                    <strong>Date and time of depature from Hotel</strong>
+                                                                </td>
+                                                                <td style="padding: 3px;">
+                                                                    <input type="text"
+                                                                        style="width: 100%; height: 20px; font-size: 10px;"
+                                                                        value="{{ $guests->depaturedate }}" readonly>
+                                                                </td>
+                                                            </tr>
+                                                            <tr style="color: #484848;">
+                                                                <td style="padding: 3px;">
+                                                                    <strong>Address to which Proceeding</strong>
+                                                                </td>
+                                                                <td style="padding: 3px;">
+                                                                    <input type="text"
+                                                                        style="width: 100%; height: 20px; font-size: 10px;"
+                                                                        value="{{ $guests->address }}" readonly>
+                                                                </td>
+                                                            </tr>
+                                                            <tr style="color: #484848;">
+                                                                <td style="padding: 3px;">
                                                                     <strong>User Signature</strong>
                                                                 </td>
                                                                 <td style="padding: 3px;">
@@ -149,6 +189,7 @@
                                                                     <img src="{{ public_path('storage/' . $guests->manager_signature_image_url) }}"
                                                                         height="60" />
                                                                 </td>
+
                                                             </tr>
                                                         </tbody>
                                                     </table>

@@ -58,14 +58,12 @@
                         <tr>
                             <th>Sl no</th>
                             <th>First Name</th>
-                            <th>Last Name</th>
                             <th>Date of Birth</th>
                             <th>Address</th>
                             <th>Arriving From</th>
                             <th>Arrival Date & Time</th>
                             <th>Purpose of Visit</th>
                             <th>Departure Date</th>
-                            <th>Proceeding To</th>
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Nationality</th>
@@ -77,7 +75,6 @@
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $guest->firstname ?? '--' }}</td>
-                                <td>{{ $guest->lastname ?? '--' }}</td>
                                 <td>{{ $guest->dob ? Carbon\Carbon::parse($guest->dob)->format('d-m-Y') : '--' }}</td>
                                 <td>{{ $guest->address ?? '--' }}</td>
                                 <td>{{ $guest->arrivingfrom ?? '--' }}</td>
@@ -86,7 +83,6 @@
                                 <td>{{ $guest->purposeofvisit ?? '--' }}</td>
                                 <td>{{ $guest->depaturedate ? Carbon\Carbon::parse($guest->depaturedate)->format('d-m-Y') : '--' }}
                                 </td>
-                                <td>{{ $guest->proceedingto ?? '--' }}</td>
                                 <td>{{ $guest->email ?? '--' }}</td>
                                 <td>{{ $guest->phone ?? '--' }}</td>
                                 <td>{{ $guest->nationality ?? '--' }}</td>
@@ -161,14 +157,12 @@
                     <tr>
                         <td>${index + 1}</td>
                         <td>${guest.firstname || '--'}</td>
-                        <td>${guest.lastname || '--'}</td>
                         <td>${guest.dob ? new Date(guest.dob).toLocaleDateString('en-GB') : '--'}</td>
                         <td>${guest.address || '--'}</td>
                         <td>${guest.arrivingfrom || '--'}</td>
                         <td>${guest.datetime ? new Date(guest.datetime).toLocaleString('en-GB') : '--'}</td>
                         <td>${guest.purposeofvisit || '--'}</td>
                         <td>${guest.depaturedate ? new Date(guest.depaturedate).toLocaleDateString('en-GB') : '--'}</td>
-                        <td>${guest.proceedingto || '--'}</td>
                         <td>${guest.email || '--'}</td>
                         <td>${guest.phone || '--'}</td>
                         <td>${guest.nationality || '--'}</td>
@@ -249,7 +243,7 @@
             }
         </script>
     @endpush
-    <style>
+    {{-- <style>
         .table-scroll {
             position: relative;
             max-width: 1280px;
@@ -296,5 +290,5 @@
         .table-scroll table::-webkit-scrollbar-corner {
             background: inherit;
         }
-    </style>
+    </style> --}}
 </x-app-layout>

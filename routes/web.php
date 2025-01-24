@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\frontend\RegistrationController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 
@@ -34,5 +35,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/admin/filter-guests', [LoginController::class, 'filterGuests'])->name('admin.filter.guests');
     Route::get('admin/downloadformb/{id}',[LoginController::class,'downloadformb'])->name('admin.downloadformb');
+    Route::get('reports',[ReportController::class,'getreports'])->name('admin.reports');
+    Route::post('/generate-foreigner-reports', [ReportController::class, 'generateForeignerReports'])->name('generate.foreigner.reports');
+
 
 });

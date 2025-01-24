@@ -183,7 +183,8 @@
                                                     <div class="form-floating">
                                                         <input type="email" name="email" class="form-control"
                                                             id="email" placeholder="Email ID" autocomplete="off">
-                                                        <label for="email">Email ID</label>
+                                                        <label for="email">Email ID<span
+                                                                style="color: red;">*</span></label>
                                                         @error('email')
                                                             <span
                                                                 style="font-size:13px;color:#ffff;">{{ $message }}</span>
@@ -745,6 +746,10 @@
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" id="clearUserSignature" class="btn btn-warning">Clear</button>
+                    <button type="button" id="saveUserSignature" class="btn btn-primary">Save Signature</button>
+                </div>
                 <div class="modal-body">
                     <div class="user-SigPad mb-4">
                         <div class="sig sigWrapper mx-auto">
@@ -753,10 +758,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" id="clearUserSignature" class="btn btn-warning">Clear</button>
-                    <button type="button" id="saveUserSignature" class="btn btn-primary">Save Signature</button>
-                </div>
+
             </div>
         </div>
     </div>
@@ -773,6 +775,11 @@
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" id="clearManagerSignature" class="btn btn-warning">Clear</button>
+                    <button type="button" id="saveManagerSignature" class="btn btn-primary">Save
+                        Signature</button>
+                </div>
                 <div class="modal-body">
                     <div class="man-SigPad mb-4">
                         <div class="sig sigWrapper mx-auto">
@@ -781,11 +788,7 @@
                             <input type="hidden" name="managersignature" id="managersignature">
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" id="clearManagerSignature" class="btn btn-warning">Clear</button>
-                        <button type="button" id="saveManagerSignature" class="btn btn-primary">Save
-                            Signature</button>
-                    </div>
+
                 </div>
             </div>
         </div>

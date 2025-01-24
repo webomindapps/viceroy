@@ -16,6 +16,13 @@ class SideBar extends Component
             'isSubMenu' => false,
             'name' => 'dashboard',
         ],
+        [
+            'title' => 'Form B Reports',
+            'icon' => 'bx bxs-report',
+            'route' => 'admin.reports',
+            'isSubMenu' => false,
+            'name' => 'reports',
+        ],
        
 
         // [
