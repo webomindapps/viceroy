@@ -174,7 +174,7 @@
                         <div class="row">
                             @foreach ($guest->documents as $document)
                                 <div class="col-md-3 mb-3">
-                                    <img src="{{ asset('storage/' . $document->image_url) }}" alt="Document Image"
+                                    <img src="{{ asset($document->image_url) }}" alt="Document Image"
                                         class="img-fluid" width="150">
                                 </div>
                             @endforeach
@@ -198,7 +198,7 @@
                             <span>Signature</span>
                         </div>
                         @if ($guest->signature_image_url)
-                            <img src="{{ asset('storage/' . $guest->signature_image_url) }}" alt="Signature Image"
+                            <img src="{{ asset($guest->signature_image_url) }}" alt="Signature Image"
                                 class="img-fluid" width="250">
                         @else
                             <p>No signature available</p>
@@ -212,7 +212,7 @@
                             <span>Manager Signature</span>
                         </div>
                         @if ($guest->manager_signature_image_url)
-                            <img src="{{ asset('storage/' . $guest->manager_signature_image_url) }}"
+                            <img src="{{ asset($guest->manager_signature_image_url) }}"
                                 alt="Signature Image" class="img-fluid" width="250">
                         @else
                             <p>No signature available</p>
