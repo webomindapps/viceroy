@@ -149,46 +149,58 @@
                     url: url,
                     method: 'GET',
                     success: function(response) {
-                        const tableBody = document.querySelector('table tbody');
-                        tableBody.innerHTML = '';
+                        const tableBody = document.querySelector("table tbody");
+                        tableBody.innerHTML = "";
 
                         response.forEach((guest, index) => {
+                            let downloadFormB = ""; // Initialize an empty string
+
+                            if (guest.nationality !== "India") {
+                                downloadFormB = `
+                <a class="dropdown-item" href="/admin/downloadformb/${guest.id}">
+                    <i class="bx bx-download"></i> Download Form B
+                </a>
+            `;
+                            }
+
                             const row = `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td>${guest.firstname || '--'}</td>
-                        <td>${guest.dob ? new Date(guest.dob).toLocaleDateString('en-GB') : '--'}</td>
-                        <td>${guest.address || '--'}</td>
-                        <td>${guest.arrivingfrom || '--'}</td>
-                        <td>${guest.datetime ? new Date(guest.datetime).toLocaleString('en-GB') : '--'}</td>
-                        <td>${guest.purposeofvisit || '--'}</td>
-                        <td>${guest.depaturedate ? new Date(guest.depaturedate).toLocaleDateString('en-GB') : '--'}</td>
-                        <td>${guest.email || '--'}</td>
-                        <td>${guest.phone || '--'}</td>
-                        <td>${guest.nationality || '--'}</td>
-                        <td>
-                            <div class="dropdown pop_Up dropdown_bg">
-                                <div class="dropdown-toggle" id="dropdownMenuButton-${guest.id}" data-bs-toggle="dropdown" aria-expanded="true">
-                                    Action
-                                </div>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li>
-                                        <a class="dropdown-item" href="/admin/guest/${guest.id}/details">
-                                            <i class=" bx bx-link-external"></i> View
-                                        </a>
-                                        <a class="dropdown-item" href="/admin/guest/${guest.id}/edit">
-                                            <i class='bx bx-edit-alt'></i> Edit
-                                        </a>
-                                        <a class="dropdown-item" onclick="return confirm('Are you sure to delete this?')" href="/guest/${guest.id}/delete">
-                                            <i class='bx bx-trash-alt'></i> Delete
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-                            tableBody.insertAdjacentHTML('beforeend', row);
+            <tr>
+                <td>${index + 1}</td>
+                <td>${guest.firstname || "--"}</td>
+                <td>${guest.dob ? new Date(guest.dob).toLocaleDateString("en-GB") : "--"}</td>
+                <td>${guest.address || "--"}</td>
+                <td>${guest.arrivingfrom || "--"}</td>
+                <td>${guest.datetime ? new Date(guest.datetime).toLocaleString("en-GB") : "--"}</td>
+                <td>${guest.purposeofvisit || "--"}</td>
+                <td>${guest.depaturedate ? new Date(guest.depaturedate).toLocaleDateString("en-GB") : "--"}</td>
+                <td>${guest.email || "--"}</td>
+                <td>${guest.phone || "--"}</td>
+                <td>${guest.nationality || "--"}</td>
+                <td>
+                    <div class="dropdown pop_Up dropdown_bg">
+                        <div class="dropdown-toggle" id="dropdownMenuButton-${guest.id}" data-bs-toggle="dropdown" aria-expanded="true">
+                            Action
+                        </div>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li>
+                                <a class="dropdown-item" href="/admin/guest/${guest.id}/details">
+                                    <i class="bx bx-link-external"></i> View
+                                </a>
+                                <a class="dropdown-item" href="/admin/guest/${guest.id}/edit">
+                                    <i class="bx bx-edit-alt"></i> Edit
+                                </a>
+                                <a class="dropdown-item" onclick="return confirm('Are you sure to delete this?')" href="/guest/${guest.id}/delete">
+                                    <i class="bx bx-trash-alt"></i> Delete
+                                </a>
+                                ${downloadFormB} <!-- This will only be added if the nationality is not India -->
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        `;
+
+                            tableBody.insertAdjacentHTML("beforeend", row);
                         });
                     },
                     error: function() {

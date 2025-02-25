@@ -27,12 +27,12 @@ class RegistrationController extends Controller
         if (Auth::guard('staff')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
             return to_route('welcome');
         }
-        return back()->with('error', 'We did not find any admin with these credentials.');
+        return back()->with('danger', 'Invalid Credentials');
     }
     public function logout()
     {
         Auth::logout();
-        return redirect('staff_login');
+        return redirect()->route('staff_login');
     }
     public function welcome(Request $request)
     {
@@ -73,7 +73,6 @@ class RegistrationController extends Controller
 
     public function store(Request $request)
     {
-
         $validated = $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
@@ -95,6 +94,7 @@ class RegistrationController extends Controller
             'email' => $request->email,
             'phone' => $validated['phone'],
             'nationality' => $validated['nationality'],
+            'notes_text' => $request->notes_text,
             'passportno' => $request->passportno,
             'dateofissue' => $request->dateofissue,
             'placeofissue' => $request->placeofissue,
@@ -228,6 +228,7 @@ class RegistrationController extends Controller
             'purposeofvisit' => $request->purposeofvisit,
             'depaturedate' => $request->depaturedate,
             'proceedingto' => $request->proceedingto,
+            'notes_text' => $request->notes_text,
             'email' => $request->email,
             'phone' => $validated['phone'],
             'nationality' => $validated['nationality'],
@@ -273,7 +274,7 @@ class RegistrationController extends Controller
             ]);
         }
 
-        return redirect('/')->with('success', 'Guest details updated successfully!');
+        return redirect()->route('welcome')->with('success', 'Guest details updated successfully!');
     }
     public function deleteDocument($id)
     {

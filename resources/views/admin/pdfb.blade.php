@@ -177,7 +177,7 @@
                                                                     <strong>User Signature</strong>
                                                                 </td>
                                                                 <td style="padding: 3px;">
-                                                                    <img src="{{ public_path('storage/' . $guests->signature_image_url) }}"
+                                                                    <img src="{{ public_path( $guests->signature_image_url) }}"
                                                                         height="60" />
                                                                 </td>
                                                             </tr>
@@ -186,7 +186,7 @@
                                                                     <strong>Manager Signature</strong>
                                                                 </td>
                                                                 <td style="padding: 3px;">
-                                                                    <img src="{{ public_path('storage/' . $guests->manager_signature_image_url) }}"
+                                                                    <img src="{{ public_path($guests->manager_signature_image_url) }}"
                                                                         height="60" />
                                                                 </td>
 

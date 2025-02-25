@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-5 mx-auto my-5">
             <div class="col-lg-12 text-center">
-                <img src="{{ asset('admin/logo.png') }}" class="img-fluid logo_img" >
+                <img src="{{ asset('admin/logo.png') }}" class="img-fluid logo_img">
             </div>
             <div class="login-card bg-white shadow-sm">
                 <form action="{{ route('admin.login') }}" method="POST" enctype="multipart/form-data">
@@ -37,6 +37,13 @@
                             @error('password')
                                 <p class="validation-error">{{ $message }}</p>
                             @enderror
+                            @if (session('danger'))
+                                <div class="mb-4">
+                                    <ul class="error">
+                                        {{ session('danger') }}
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
 
                         <div class="col-lg-12">

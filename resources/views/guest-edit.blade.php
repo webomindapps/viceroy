@@ -229,7 +229,7 @@
                         <div class="row">
                             @foreach ($guest->documents as $document)
                                 <div class="col-md-3  mt-4 mb-3 position-relative">
-                                    <img src="{{ asset('storage/' . $document->image_url) }}" alt="Document Image"
+                                    <img src="{{ asset($document->image_url) }}" alt="Document Image"
                                         class="img-fluid" width="150">
                                     <a onclick="return confirm('Are you sure you want to delete this?')"
                                         href="{{ route('guests.document.delete', $document->id) }}"
@@ -250,19 +250,21 @@
 
                         <div class="mb-3">
                             <label for="vipdetails" class="form-label">Guest Notes</label>
-                            <div id="signature-pad" class="signature-pad">
+                            {{-- <div id="signature-pad" class="signature-pad">
                                 <canvas id="vipdetails-canvas" class="border" width="400"
                                     height="200"></canvas>
                             </div>
                             <button type="button" id="saveVipDetails" class="btn btn-primary mt-2">Save
                                 Guest Notes</button>
                             <button type="button" class="btn btn-secondary mt-2"
-                                onclick="clearCanvas()">Clear</button>
-                            <input type="hidden" name="vipdetails" id="vipdetails">
+                                onclick="clearCanvas()">Clear</button> --}}
+                            {{-- <input type="hidden" name="vipdetails" id="vipdetails"> --}}
+                            <textarea class="form-control"  name="notes_text" rows="4"> {{ $guest->notes_text }}</textarea>
+                            {{-- 
                             <img id="vipSignatureImage"
                                 src="{{ $guest->vipdetails ? asset($guest->vipdetails) : '' }}"
                                 alt="VIP Signature" class="img-fluid mt-3"
-                                style="display: {{ $guest->vipdetails ? 'block' : 'none' }};" width="400">
+                                style="display: {{ $guest->vipdetails ? 'block' : 'none' }};" width="400"> --}}
                             <button type="button" id="removeFile" class="btn btn-danger mt-2"
                                 style="display: none;">Remove</button>
                         </div>
@@ -276,7 +278,7 @@
     </section>
 </body>
 
-<script>
+{{-- <script>
     const vipCanvas = document.getElementById('vipdetails-canvas');
     const vipCtx = vipCanvas.getContext('2d');
     const vipSignatureInput = document.getElementById('vipdetails');
@@ -344,6 +346,6 @@
         clearCanvas();
         removeFileIcon.style.display = 'none';
     });
-</script>
+</script> --}}
 
 </html>

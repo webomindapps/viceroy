@@ -23,6 +23,13 @@ class SideBar extends Component
             'isSubMenu' => false,
             'name' => 'reports',
         ],
+        [
+            'title' => 'Staff Master',
+            'icon' => 'bx bxs-user',
+            'route' => 'admin.staffmaster',
+            'isSubMenu' => false,
+            'name' => 'staff-master',
+        ],
        
 
         // [

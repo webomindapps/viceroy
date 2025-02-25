@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title> Viceroy-GRC</title>
-    <link rel="icon" type="image/ico" href="">
+    <link rel="icon" type="image/ico" href="{{ asset('favicon.ico') }}">
     <link defer preload rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     <link defer href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css" rel="stylesheet"
         crossorigin>
@@ -162,7 +162,7 @@
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="form-floating mb-3">
                                                         <input type="text" name="depaturedate"
-                                                            class="form-control" placeholder="MM/DD/YYYY"
+                                                            class="form-control" placeholder="Depature Date"
                                                             onfocus="(this.type='date')" onblur="(this.type='text')"
                                                             id="depaturedate" autocomplete="off">
                                                         <label for="depaturedate">Departure Date</label>
@@ -242,7 +242,7 @@
                                                     <div class="form-floating">
                                                         <input type="number" name="packno" class="form-control"
                                                             id="packno" placeholder="packno" autocomplete="off">
-                                                        <label for="packno">Number Of Packs</label>
+                                                        <label for="packno">Number Of Pax</label>
                                                     </div>
 
                                                 </div>
@@ -280,8 +280,7 @@
                                                                 style="font-size: 54px; display: none; cursor: pointer;"
                                                                 onclick="showSignatureModal()"></i>
                                                             <i id="vipDeleteIcon" class="fa-solid fa-delete-left"
-                                                                style="font-size: 24px; display: none; cursor: pointer; color: rgb(197, 71, 83); position: absolute; top: -1px; right: -15px; transform: translate(50%, -50%);"
-                                                                ></i>
+                                                                style="font-size: 24px; display: none; cursor: pointer; color: rgb(197, 71, 83); position: absolute; top: -1px; right: -15px; transform: translate(50%, -50%);"></i>
                                                         </div>
 
                                                     </div>
@@ -289,7 +288,8 @@
 
                                                 <input type="hidden" name="vipdetails" id="vipDetailsInput"
                                                     value="" />
-
+                                                <input type="hidden" name="notes_text" id="notestext"
+                                                    value="" />
 
 
                                             </div>
@@ -308,7 +308,8 @@
                                                         <input type="number" name="passportno" class="form-control"
                                                             id="passportno" placeholder="Passport Number"
                                                             autocomplete="off">
-                                                        <label for="passportno">Passport Number</label>
+                                                        <label for="passportno">Passport Number<span
+                                                                style="color: red;">*</span></label>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
@@ -317,7 +318,8 @@
                                                             placeholder="MM/DD/YYYY" onfocus="(this.type='date')"
                                                             onblur="(this.type='text')" id="dateofissue"
                                                             autocomplete="off">
-                                                        <label for="dateofissue">Date of Issue</label>
+                                                        <label for="dateofissue">Date of Issue<span
+                                                                style="color: red;">*</span></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -328,7 +330,8 @@
                                                         <input type="text" name="placeofissue"
                                                             class="form-control" id="placeofissue"
                                                             placeholder="Place of Issue" autocomplete="off">
-                                                        <label for="placeofissue">Place of Issue</label>
+                                                        <label for="placeofissue">Place of Issue<span
+                                                                style="color: red;">*</span></label>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
@@ -337,7 +340,8 @@
                                                             class="form-control" placeholder="MM/DD/YYYY"
                                                             onfocus="(this.type='date')" onblur="(this.type='text')"
                                                             id="dateofexpiry" autocomplete="off">
-                                                        <label for="dateofexpiry">Date of Expiry</label>
+                                                        <label for="dateofexpiry">Date of Expiry<span
+                                                                style="color: red;">*</span></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -351,7 +355,7 @@
                                                             onfocus="(this.type='date')" onblur="(this.type='text')"
                                                             id="dateofarrival" autocomplete="off">
                                                         <label for="dateofarrival">Date of Arrival In
-                                                            India</label>
+                                                            India<span style="color: red;">*</span></label>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
@@ -359,7 +363,8 @@
                                                         <input type="number" name="visano" class="form-control"
                                                             id="visano" placeholder="Visa Number"
                                                             autocomplete="off">
-                                                        <label for="visano">Visa Number</label>
+                                                        <label for="visano">Visa Number<span
+                                                                style="color: red;">*</span></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -372,7 +377,7 @@
                                                             class="form-control" id="placeofvisaissue"
                                                             placeholder="Place of Visa Issue" autocomplete="off">
                                                         <label for="placeofvisaissue">Place of Visa
-                                                            Issue</label>
+                                                            Issue<span style="color: red;">*</span></label>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
@@ -380,7 +385,8 @@
                                                         <input type="text" name="durationofstay"
                                                             class="form-control" id="durationofstay"
                                                             placeholder="Duration Of Stay" autocomplete="off">
-                                                        <label for="durationofstay">Duration Of Stay</label>
+                                                        <label for="durationofstay">Duration Of Stay<span
+                                                                style="color: red;">*</span></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -393,7 +399,8 @@
                                                             class="form-control" placeholder="MM/DD/YYYY"
                                                             onfocus="(this.type='date')" onblur="(this.type='text')"
                                                             id="dateofvisaissue" autocomplete="off">
-                                                        <label for="dateofvisaissue">Date of Visa Issue</label>
+                                                        <label for="dateofvisaissue">Date of Visa Issue<span
+                                                                style="color: red;">*</span></label>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
@@ -403,7 +410,7 @@
                                                             onfocus="(this.type='date')" onblur="(this.type='text')"
                                                             id="dateofvisaexpiry" autocomplete="off">
                                                         <label for="dateofvisaexpiry">Date of Visa
-                                                            Expiry</label>
+                                                            Expiry<span style="color: red;">*</span></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -418,7 +425,8 @@
                                                             <option value="yes">Yes</option>
                                                             <option value="no">No</option>
                                                         </select>
-                                                        <label for="employeed">Employed in India</label>
+                                                        <label for="employeed">Employed in India<span
+                                                                style="color: red;">*</span></label>
                                                     </div>
                                                 </div>
 
@@ -575,10 +583,11 @@
                                                 </div>
 
                                                 <div class="col-lg-6 mt-4 mdl_content_2">
-                                                    <button id="userSignatureButton" class="btn btn-primary w-100"
-                                                        data-bs-toggle="modal" data-bs-target="#userSignatureModal">
+                                                    <a id="userSignatureButton" class="btn btn-primary w-100"
+                                                        href="#userSignatureModal" data-bs-toggle="modal">
                                                         Guest Signature
-                                                    </button>
+                                                    </a>
+
                                                     <div id="userSignatureDisplay"
                                                         style="display: none; position: relative; text-align: center;">
                                                         <label id="userSignatureLabel"
@@ -596,11 +605,11 @@
 
                                                 <!-- Manager Signature Section -->
                                                 <div class="col-lg-6 mt-4 mdl_content_2">
-                                                    <button id="managerSignatureButton" class="btn btn-primary w-100"
+                                                    <a id="managerSignatureButton" class="btn btn-primary w-100"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#managerSignatureModal">
                                                         Manager Signature
-                                                    </button>
+                                                    </a>
                                                     <div id="managerSignatureDisplay"
                                                         style="display: none; position: relative; text-align: center;">
                                                         <label id="managerSignatureLabel"
@@ -615,9 +624,6 @@
                                                         </button>
                                                     </div>
                                                 </div>
-
-
-
                                             </div>
                                             <input type="hidden" name="signature_image_url" id="signature">
                                             <input type="hidden" name="manager_signature_image_url"
@@ -716,9 +722,10 @@
                 <div class="modal-body">
                     <div class="vip-pad mb-4">
                         <div class="sig sigWrapper mx-auto vip-sig-wrapper">
-                            <canvas class="pad" width="620" height="310" id="vip-pad"></canvas>
-                            <input type="hidden" name="vipdetails" id="vipDetailsInput" value="" />
+                            {{-- <canvas class="pad" width="620" height="310" id="vip-pad"></canvas>
+                            <input type="hidden" name="vipdetails" id="vipDetailsInput" value="" /> --}}
                         </div>
+                        <textarea class="form-control" rows="4" id="typedNotes"></textarea>
                     </div>
                 </div>
             </div>
@@ -730,12 +737,15 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="signatureDisplayModalLabel">Guest Details</h5>
+                    <h5 class="modal-title" id="signatureDisplayModalLabel">Guest Notes</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img id="displaySignatureImage" src="" alt="Guest Notes"
-                        style="max-width: 100%; border: 1px solid #000;">
+                    {{-- <img id="displaySignatureImage" src="" alt="Guest Notes"
+                        style="max-width: 100%; border: 1px solid #000;"> --}}
+                    <p class="mt-3 text-start">Typed Notes:</p>
+                    <textarea id="displayTypedNotes" class="form-control" style="white-space: pre-wrap;" readonly></textarea>
+                    <!-- Added for text -->
                 </div>
             </div>
         </div>
@@ -889,17 +899,16 @@
             var steps = $("fieldset").length;
 
             setProgressBar(current);
-            $("#submitButton").prop("disabled", true);
+            $("#submitButton").prop("disabled", true).hide();
 
             $(".next").click(function(e) {
                 current_fs = $(this).parent();
                 next_fs = $(this).parent().next();
 
                 var isValid = true;
-
                 current_fs.find(".error").remove();
                 $("#termsError").hide();
-                $("#rulesError").hide();
+                $("#rulesError").hide()
 
                 current_fs.find("#firstname, #lastname, #phone ,#email").each(function() {
                     if ($(this).val().trim() === "") {
@@ -919,22 +928,39 @@
                         "<span class='error' style='color:black; font-size: 13px;'>Please select a nationality</span>"
                     );
                 } else if (nationality !== "India") {
-                    current_fs.find("#arrivingfrom, #address, #datetime, #purposeofvisit, #proceedingto")
+                    current_fs.find(
+                            "#arrivingfrom, #address, #purposeofvisit, #depaturedate, #proceedingto, #mealplan"
+                        )
                         .each(function() {
-                            if ($(this).val().trim() === "") {
+                            var $input = $(this);
+                            var fieldLabel = $input.attr("placeholder") || $input.closest(
+                                '.form-floating').find('label').text();
+
+                            var $label = $input.closest('.form-floating').find('label');
+                            if ($label.length && !$label.find(".required-asterisk").length) {
+                                $label.append(
+                                    "<span class='required-asterisk' style='color: red;'>*</span>");
+                            }
+
+                            if ($input.val().trim() === "") {
                                 isValid = false;
-                                var fieldLabel = $(this).attr("placeholder") || $(this).closest(
-                                    '.form-floating').find('label').text();
-                                $(this).after(
+                                $input.after(
                                     "<span class='error' style='color:black; font-size: 13px;'>The " +
                                     fieldLabel + " field is required</span>");
                             }
                         });
 
-                    var depaturedate = $("#depaturedate").val();
-                    if (depaturedate === null || depaturedate === "") {
+                    var depaturedate = $("#depaturedate");
+                    if (depaturedate.val().trim() === "") {
                         isValid = false;
-                        $("#depaturedate").after(
+
+                        var depatureLabel = depaturedate.closest('.form-floating').find('label');
+                        if (depatureLabel.length && !depatureLabel.find(".required-asterisk").length) {
+                            depatureLabel.append(
+                                "<span class='required-asterisk' style='color: red;'>*</span>");
+                        }
+
+                        depaturedate.after(
                             "<span class='error' style='color:black; font-size: 13px;'>Please enter the departure date</span>"
                         );
                     }
@@ -972,10 +998,14 @@
                     var passportNo = current_fs.find("#passportno").val();
                     var visaNo = current_fs.find("#visano").val();
                     var dateofissue = current_fs.find('#dateofissue').val();
+                    var dateofexpiry = current_fs.find('#dateofexpiry').val();
                     var placeofissue = current_fs.find('#placeofissue').val();
                     var dateofarrival = current_fs.find('#dateofarrival').val();
                     var durationofstay = current_fs.find('#durationofstay').val();
                     var employeed = current_fs.find('#employeed').val();
+                    var placeofvisaissue = current_fs.find('#placeofvisaissue').val();
+                    var dateofvisaissue = current_fs.find('#dateofvisaissue').val();
+                    var dateofvisaexpiry = current_fs.find('#dateofvisaexpiry').val();
 
 
                     if (!passportNo) {
@@ -991,10 +1021,35 @@
                             "<span class='error' style='color:black; font-size: 13px;'>Visa Number is required</span>"
                         );
                     }
+                    if (!placeofvisaissue) {
+                        isValid = false;
+                        current_fs.find("#placeofvisaissue").after(
+                            "<span class='error' style='color:black; font-size: 13px;'>Place Of Visa issue is required</span>"
+                        );
+                    }
+                    if (!dateofvisaissue) {
+                        isValid = false;
+                        current_fs.find("#dateofvisaissue").after(
+                            "<span class='error' style='color:black; font-size: 13px;'>Date Of Visa issue is required</span>"
+                        );
+                    }
+                    if (!dateofvisaexpiry) {
+                        isValid = false;
+                        current_fs.find("#dateofvisaexpiry").after(
+                            "<span class='error' style='color:black; font-size: 13px;'>Date Of Visa Expiry is required</span>"
+                        );
+                    }
+
                     if (!dateofissue) {
                         isValid = false;
                         current_fs.find("#dateofissue").after(
                             "<span class='error' style='color:black; font-size: 13px;'>Date of passport issue is required</span>"
+                        );
+                    }
+                    if (!dateofexpiry) {
+                        isValid = false;
+                        current_fs.find("#dateofexpiry").after(
+                            "<span class='error' style='color:black; font-size: 13px;'>Date of passport Expiry is required</span>"
                         );
                     }
                     if (!placeofissue) {
@@ -1022,7 +1077,6 @@
                         );
                     }
                 }
-
                 if (!isValid) {
                     e.preventDefault();
                     return;
@@ -1033,9 +1087,7 @@
                     current = 2;
                 }
 
-
                 $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
                 next_fs.show();
                 current_fs.animate({
                     opacity: 0
@@ -1053,12 +1105,15 @@
                     duration: 500
                 });
 
-
                 current++;
                 setProgressBar(current);
 
-                if (current === steps && isValid) {
-                    $("#submitButton").prop("disabled", false);
+                if (current === steps) {
+                    $("#submitButton").prop("disabled", false).show();
+                    $(".previous").show();
+                } else {
+                    $("#submitButton").prop("disabled", true).hide();
+                    $(".previous").show();
                 }
             });
 
@@ -1069,10 +1124,17 @@
                 if (current === 3 && $("#nationality").val() === "India") {
                     previous_fs = $("fieldset").eq(0);
                     current = 2;
+                } else if (current === 4) {
+                    previous_fs = $("fieldset").eq(2);
+                } else if (current === 4 && $("#nationality").val() === "India") {
+                    previous_fs = $("fieldset").eq(0);
+                    current = 3;
+                } else if (current === 5) {
+                    previous_fs = $("fieldset").eq(3);
                 }
 
                 $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
-
+                $("fieldset").hide();
                 previous_fs.show();
 
                 current_fs.animate({
@@ -1081,20 +1143,38 @@
                     step: function(now) {
                         var opacity = 1 - now;
                         current_fs.css({
-                            display: "none",
-                            position: "relative"
+                            position: "absolute"
                         });
                         previous_fs.css({
                             opacity: opacity
                         });
                     },
-                    duration: 500
+                    duration: 500,
+                    complete: function() {
+                        current_fs.css({
+                            display: "none",
+                            position: "relative"
+                        });
+                    },
                 });
 
+                current--; // Decrease the current step
+                setProgressBar(current); // Update progress bar
 
-                current--;
-                setProgressBar(current);
+                // Show/hide the "previous" and "submit" buttons
+                if (current === 1) {
+                    $(".previous").hide();
+                    $("#submitButton").hide();
+                } else if (current === steps) {
+                    $(".previous").show();
+                    $("#submitButton").prop("disabled", false).show();
+                } else {
+                    $(".previous").show();
+                    $("#submitButton").hide();
+                }
             });
+
+
 
             function setProgressBar(step) {
                 var percent = (step / steps) * 100;
@@ -1103,7 +1183,6 @@
 
             $("#submitButton").click(function(e) {
                 e.preventDefault();
-
                 var isFormValid = true;
 
                 $("fieldset").each(function() {
@@ -1148,57 +1227,107 @@
 
 
     <script>
-        $(document).ready(function() {
-            const userFileIcon = document.getElementById('userFileIcon');
-            const vipSignatureInput = document.getElementById('vipDetailsInput');
-            const vipButton = document.getElementById('vipButton');
-            const vipFileIcon = document.getElementById('vipFileIcon');
-            const displaySignatureImage = document.getElementById('displaySignatureImage');
+        // $(document).ready(function() {
+        //     const vipSignatureInput = document.getElementById("vipDetailsInput");
+        //     const vipButton = document.getElementById("vipButton");
+        //     const vipFileIcon = document.getElementById("vipFileIcon");
+        //     const vipDeleteIcon = document.getElementById("vipDeleteIcon");
+        //     const displaySignatureImage = document.getElementById("displaySignatureImage");
+        //     const canvas = document.querySelector("#vip-pad");
 
-            const vipSigPad = $(".vip-pad").signaturePad({
-                drawOnly: true,
-                defaultAction: 'drawIt',
-                penColour: '#000',
-                output: '#signature',
-                lineTop: 250
-            });
+        //     const vipSigPad = $(".vip-pad").signaturePad({
+        //         drawOnly: true,
+        //         defaultAction: "drawIt",
+        //         penColour: "#000",
+        //         output: "#signature",
+        //         lineTop: 250,
+        //     });
+
+        //     function resizeCanvas() {
+        //         const ctx = canvas.getContext("2d");
+        //         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        //         vipSigPad.clearCanvas();
+        //     }
+
+        //     $("#vipModal").on("shown.bs.modal", function() {
+        //         resizeCanvas();
+        //     });
+
+        //     $("#saveVipDetails").click(function() {
+        //         if (vipSigPad.getSignature().length === 0) {
+        //             alert("Please provide a signature before saving.");
+        //             return;
+        //         }
+
+        //         const dataURL = canvas.toDataURL("image/png");
+        //         vipSignatureInput.value = dataURL;
+
+        //         vipButton.style.display = "none";
+        //         vipFileIcon.style.display = "inline-block";
+        //         vipDeleteIcon.style.display = "inline-block";
+
+        //         displaySignatureImage.src = dataURL;
+        //         displaySignatureImage.style.display = "block";
+
+        //         const modal = bootstrap.Modal.getInstance(document.getElementById("vipModal"));
+        //         modal.hide();
+
+        //         vipSigPad.clearCanvas();
+        //     });
+
+        //     $("#clearVipDetails").click(function() {
+        //         vipSigPad.clearCanvas();
+        //         vipSignatureInput.value = "";
+        //     });
+
+        //     $("#vipDeleteIcon").click(function() {
+        //         displaySignatureImage.style.display = "none";
+        //         vipFileIcon.style.display = "none";
+        //         vipDeleteIcon.style.display = "none";
+        //         vipButton.style.display = "inline-block";
+        //         vipSignatureInput.value = "";
+        //     });
+
+        // });
+        $(document).ready(function() {
+            const vipButton = document.getElementById("vipButton");
+            const vipFileIcon = document.getElementById("vipFileIcon");
+            const vipDeleteIcon = document.getElementById("vipDeleteIcon");
+            const displayTypedNotes = document.getElementById("displayTypedNotes");
+            const typedNotes = document.getElementById("typedNotes");
+            const savednotes = document.getElementById("notestext");
 
             $("#saveVipDetails").click(function() {
-                const canvas = document.querySelector("#vip-pad");
-                const dataURL = canvas.toDataURL("image/png");
-                vipSignatureInput.value = dataURL;
+                const notesValue = typedNotes.value.trim();
 
-                vipButton.style.display = 'none';
-                vipFileIcon.style.display = 'inline-block';
-                vipDeleteIcon.style.display = 'inline-block';
+                if (notesValue.length === 0) {
+                    alert("Please enter some notes before saving.");
+                    return;
+                }
 
-                displaySignatureImage.src = dataURL;
-                displaySignatureImage.style.display = 'block';
-                const modal = bootstrap.Modal.getInstance(document.getElementById('vipModal'));
+                savednotes.value = notesValue;
+
+                vipButton.style.display = "none";
+                vipFileIcon.style.display = "inline-block";
+                vipDeleteIcon.style.display = "inline-block";
+
+                displayTypedNotes.innerText = notesValue;
+                typedNotes.value = '';
+
+                const modal = bootstrap.Modal.getInstance(document.getElementById("vipModal"));
                 modal.hide();
-
-                vipSigPad.clearCanvas();
             });
 
             $("#clearVipDetails").click(function() {
-                vipSigPad.clearCanvas();
-                userSignatureInput.value = "";
-                $("#removeUserSignature").hide();
+                typedNotes.value = '';
             });
+
             $("#vipDeleteIcon").click(function() {
-                displaySignatureImage.style.display = 'none';
-                vipFileIcon.style.display = 'none';
-                vipDeleteIcon.style.display = 'none';
-                vipButton.style.display = 'inline-block';
-                vipSignatureInput.value = "";   
-            });
-
-            userFileIcon.addEventListener('click', () => {
-                const modal = new bootstrap.Modal(document.getElementById('userSignatureViewModal'));
-                const viewImage = document.getElementById('viewUserSignatureImage');
-                viewImage.src = userSignatureInput.value;
-
-                modal.show();
+                displayTypedNotes.innerText = "";
+                vipFileIcon.style.display = "none";
+                vipDeleteIcon.style.display = "none";
+                vipButton.style.display = "inline-block";
+                savednotes.value = "";
             });
         });
         $(document).ready(function() {

@@ -171,8 +171,8 @@
                         @foreach ($guest->documents as $document)
                             <div class="col-md-3  mt-4 mb-3 position-relative">
                                 <!-- Add position-relative to the container -->
-                                <img src="{{ asset('storage/' . $document->image_url) }}" alt="Document Image"
-                                    class="img-fluid" width="150">
+                                <img src="{{ asset($document->image_url) }}" alt="Document Image" class="img-fluid"
+                                    width="150">
                                 <a onclick="return confirm('Are you sure you want to delete this?')"
                                     href="{{ route('guest.document.delete', $document->id) }}"
                                     class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1">
@@ -182,7 +182,6 @@
                         @endforeach
                     </div>
                     {{-- <div class="mb-3">
-                    <label for="vipdetails" class="form-label">VIP Details</label>
                     <div id="signature-pad" class="signature-pad">
                         <canvas id="vipdetails-canvas" class="border" width="400" height="200"></canvas>
                     </div>
@@ -198,7 +197,7 @@
                         style="display: none;">Remove</button>
                 </div> --}}
                     <div class="SigPad mb-4">
-                        <div class="sig sigWrapper">
+                        {{-- <div class="sig sigWrapper">
                             <canvas class="pad border border-dark rounded" width="500" height="250"></canvas>
                             <div class="mb-4">
                                 <button type="button" id="saveVipDetails" class="btn btn-primary">Save VIP
@@ -207,15 +206,17 @@
                             </div>
                             <input type="hidden" name="vipdetails" id="vipdetails">
 
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="mt-4 text-center">
-                        <img id="vipSignatureImage"
-                            src="{{ $guest->vipdetails ? asset('storage/' . $guest->vipdetails) : '' }}"
+                        {{-- <img id="vipSignatureImage"
+                            src="{{ $guest->vipdetails ? asset( $guest->vipdetails) : '' }}"
                             alt="VIP Signature" class="img-fluid border rounded"
                             style="display: {{ $guest->vipdetails ? 'block' : 'none' }}; max-width: 100%; height: auto;">
                         <button type="button" id="removeFile" class="btn btn-danger mt-2"
-                            style="display: none;">Remove</button>
+                            style="display: none;">Remove</button> --}}
+                        <textarea class="form-control" name="notes_text" rows="4"> {{ $guest->notes_text }}</textarea>
+
                     </div>
                     <div class="col lg-4 mt-4">
                         <button type="submit" class="btn btn-primary">Update Guest</button>

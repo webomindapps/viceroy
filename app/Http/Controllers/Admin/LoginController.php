@@ -32,7 +32,7 @@ class LoginController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
             return to_route('admin.dashboard')->with('success', 'You have successfully logged in.');
         }
-        return back()->with('error', 'We did not find any admin with these credentials.');
+        return back()->with('danger', 'Invalid Credentials !!');
     }
     public function logout()
     {
@@ -124,6 +124,7 @@ class LoginController extends Controller
             'proceedingto' => $validated['proceedingto'],
             'email' => $validated['email'],
             'phone' => $validated['phone'],
+            'notes_text'=>$request->notes_text,
             'nationality' => $validated['nationality'],
             'roomno' => $request->roomno,
             'packno' => $request->packno,

@@ -40,6 +40,7 @@ class Registration extends Model
         'mealplan',
         'isvip',
         'vipdetails',
+        'notes_text',
         'signature_image_url',
     ];
     public function documents()

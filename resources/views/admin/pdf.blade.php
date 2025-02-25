@@ -4,6 +4,10 @@
 <head>
     <title>Guest Details</title>
     <style>
+          /* * {
+            font-family: Arial, sans-serif;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -13,7 +17,7 @@
         th,
         td {
             border: 1px solid rgb(228, 218, 218);
-            padding: 10px;
+            padding: 9px 10px;
             text-align: left;
         }
 
@@ -33,7 +37,7 @@
             text-align: left;
         }
 
-       
+
 
         .heading {
             text-align: center;
@@ -71,6 +75,91 @@
 
         .signature-section {
             margin-top: 20px;
+        } */
+      * {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+          
+        }
+
+        body {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid rgb(228, 218, 218);
+            padding: 6px;
+            text-align: left;
+            font-size: 11px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .logo-container {
+            width: 30%;
+            text-align: left;
+        }
+
+        .heading {
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .date-container {
+            text-align: right;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .logo-date {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .details-container {
+            text-align: right;
+            font-size: 10px;
+        }
+
+        .signature-section {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .signature-box {
+            width: 45%;
+            text-align: center;
+        }
+
+        .signature-box img {
+            width: 100px;
+            height: auto;
+            display: block;
+            margin: 5px auto;
+        }
+
+        .no-signature {
+            font-size: 10px;
+            color: red;
         }
     </style>
 </head>
@@ -79,8 +168,7 @@
     <div class="container-fluid">
         <div class="logo-date">
             <div class="logo-container">
-                <img style="object-fit: contain;" src="{{ public_path('admin/logo.png') }}" height="200" width="150"
-                    alt="Logo" />
+                <img style="object-fit: contain;" src="{{ public_path('admin/logo.png') }}" height="100" alt="Logo" />
             </div>
             <div class="details-container">
                 <div class="date-container">
@@ -90,10 +178,11 @@
                     GRC No: {{ $guests->id }}
                 </div>
             </div>
-            <div class="heading">Guest Details</div>
-
-            <table>
+            <table style="padding: 0;">
                 <tbody>
+                    <tr>
+                        <th colspan="2">Guest Details</th>
+                    </tr>
                     <tr>
                         <td>First Name</td>
                         <td>{{ $guests->firstname }}</td>
@@ -156,23 +245,24 @@
                     </tr>
                     <tr>
                         <td>Is VIP</td>
-                        <td>{{ $guests->isvip ? 'True' : 'False' }}</td>
+                        <td>{{ $guests->isvip == 1 ? 'Yes' : 'No' }}</td>
                     </tr>
                     <tr>
                         <td>Guest Notes</td>
                         <td>
-                            @if ($guests->vipdetails)
-                                <img src="{{ public_path('storage/' . $guests->vipdetails) }}" alt="VIP Details"
-                                    class="img-fluid" width="300" height="300">
+                            @if ($guests->notes_text)
+                                {{-- <img src="{{ public_path( $guests->vipdetails) }}" alt="VIP Details"
+                                    class="img-fluid" width="300" height="300"> --}}
+                                {{ $guests->notes_text }}
                             @else
                                 <p>No Guest Notes available</p>
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <td>Foreigner Details</td>
-                    </tr>
                     @if ($guests->nationality != 'India')
+                        <tr>
+                            <th colspan="2">Foreigner Details</th>
+                        </tr>
                         <tr>
                             <td>Passport No</td>
                             <td>{{ $guests->passportno }}</td>
@@ -222,15 +312,15 @@
             </table>
         </div>
 
-        <div class="signature-section">
+        <div class="signature-section mt-2">
             <div class="section-title p-2 fw-semibold fs-5 bg-light">
-                <span>Signature</span>
+                <span> Guest Signature</span>
             </div>
             @if ($guests->signature_image_url)
                 <img src="{{ public_path('storage/' . $guests->signature_image_url) }}" alt="Signature Image"
                     class="img-fluid" width="300" height="300">
             @else
-                <p>No signature available</p>
+                <p style="font-size: 14px; color: red; margin-left:30px;">No signature available</p>
             @endif
 
             <div class="section-title p-2 fw-semibold fs-5 bg-light">
@@ -240,9 +330,10 @@
                 <img src="{{ public_path('storage/' . $guests->manager_signature_image_url) }}"
                     alt="Manager Signature Image" class="img-fluid" width="300" height="300">
             @else
-                <p>No signature available</p>
+                <p style="font-size: 14px; color: red; margin-left:30px;">No signature available</p>
             @endif
         </div>
+    </div>
 </body>
 
 </html>

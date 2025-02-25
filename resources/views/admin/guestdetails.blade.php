@@ -86,14 +86,15 @@
                                 </tr>
                                 <tr>
                                     <td>Is VIP </td>
-                                    <td>{{ $guest->isvip ? 'False' : 'True' }}</td>
+                                    <td>{{ $guest->isvip == 1 ? 'Yes' : 'No' }}</td>
                                 </tr>
                                 <tr>
                                     <td>Guest Notes</td>
                                     <td>
-                                        @if ($guest->vipdetails)
-                                            <img src="{{ asset('storage/'.$guest->vipdetails) }}" alt="VIP Details"
-                                                class="img-fluid" width="400">
+                                        @if ($guest->notes_text)
+                                            {{-- <img src="{{ asset($guest->vipdetails) }}" alt="VIP Details"
+                                                class="img-fluid" width="400"> --}}
+                                            {{ $guest->notes_text }}
                                         @else
                                             <p>No Guest Notes available</p>
                                         @endif
@@ -174,8 +175,8 @@
                         <div class="row">
                             @foreach ($guest->documents as $document)
                                 <div class="col-md-3 mb-3">
-                                    <img src="{{ asset($document->image_url) }}" alt="Document Image"
-                                        class="img-fluid" width="150">
+                                    <img src="{{ asset($document->image_url) }}" alt="Document Image" class="img-fluid"
+                                        width="150">
                                 </div>
                             @endforeach
                         </div>
@@ -198,8 +199,8 @@
                             <span>Signature</span>
                         </div>
                         @if ($guest->signature_image_url)
-                            <img src="{{ asset($guest->signature_image_url) }}" alt="Signature Image"
-                                class="img-fluid" width="250">
+                            <img src="{{ asset($guest->signature_image_url) }}" alt="Signature Image" class="img-fluid"
+                                width="250">
                         @else
                             <p>No signature available</p>
                         @endif
@@ -212,8 +213,8 @@
                             <span>Manager Signature</span>
                         </div>
                         @if ($guest->manager_signature_image_url)
-                            <img src="{{ asset($guest->manager_signature_image_url) }}"
-                                alt="Signature Image" class="img-fluid" width="250">
+                            <img src="{{ asset($guest->manager_signature_image_url) }}" alt="Signature Image"
+                                class="img-fluid" width="250">
                         @else
                             <p>No signature available</p>
                         @endif
