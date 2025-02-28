@@ -152,71 +152,165 @@
                             <div class="section-title p-2 fw-semibold fs-5 bg-light mb-3">
                                 <span>Foreigner Details</span>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="passportno" class="form-label">Passport No</label>
-                                    <input type="text" class="form-control" id="passportno" name="passportno"
-                                        value="{{ old('passportno', $guest->passportno) }}" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="dateofissue" class="form-label">Date Of Issue</label>
-                                    <input type="date" class="form-control" id="dateofissue" name="dateofissue"
-                                        value="{{ old('dateofissue', $guest->dateofissue) }}" required>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="placeofissue" class="form-label">Place Of Issue</label>
-                                    <input type="text" class="form-control" id="placeofissue" name="placeofissue"
-                                        value="{{ old('placeofissue', $guest->placeofissue) }}" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="dateofexpiry" class="form-label">Date Of Expiry</label>
-                                    <input type="date" class="form-control" id="dateofexpiry" name="dateofexpiry"
-                                        value="{{ old('dateofexpiry', $guest->dateofexpiry) }}" required>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="dateofarrival" class="form-label">Date Of Arrival</label>
-                                    <input type="date" class="form-control" id="dateofarrival"
-                                        name="dateofarrival"
-                                        value="{{ old('dateofarrival', $guest->dateofarrival) }}" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="visano" class="form-label">Visa No</label>
-                                    <input type="text" class="form-control" id="visano" name="visano"
-                                        value="{{ old('visano', $guest->visano) }}" required>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="placeofvisaissue" class="form-label">Place Of Visa Issue</label>
-                                    <input type="text" class="form-control" id="placeofvisaissue"
-                                        name="placeofvisaissue"
-                                        value="{{ old('placeofvisaissue', $guest->placeofvisaissue) }}" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="durationofstay" class="form-label">Duration Of Stay</label>
-                                    <input type="text" class="form-control" id="durationofstay"
-                                        name="durationofstay"
-                                        value="{{ old('durationofstay', $guest->durationofstay) }}" required>
-                                </div>
+                            <div class="text-end">
+                                <button type="button" id="addMore" class="btn btn-primary">Add Person</button>
                             </div>
 
-                            <div class="col-lg-6 mb-3">
-                                <label for="employeed" class="form-label">Employeed In India?</label>
-                                <select name="employeed" class="form-control" id="employeed">
-                                    <option value="" disabled
-                                        {{ is_null($guest->employeed) ? 'selected' : '' }}>Select
-                                        Employment Status</option>
-                                    <option value="yes" {{ $guest->employeed == 'yes' ? 'selected' : '' }}>Yes
-                                    </option>
-                                    <option value="no" {{ $guest->employeed == 'no' ? 'selected' : '' }}>No
-                                    </option>
-                                </select>
+                            <div id="additionalFieldsContainer">
+                                @foreach ($guest->foreigners as $foreign)
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="guest_name" class="form-label">Name</label>
+                                            <input type="text" class="form-control guest_name" name="guest_name[]"
+                                                value="{{ old('guest_name', $foreign->guest_name) }}" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="guest_phone" class="form-label">Phone Number</label>
+                                            <input type="text" class="form-control guest_phone"
+                                                name="guest_phone[]"
+                                                value="{{ old('guest_phone', $foreign->guest_phone) }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="passportno" class="form-label">Passport No</label>
+                                            <input type="text" class="form-control passportno" name="passportno[]"
+                                                value="{{ old('passportno', $foreign->passportno) }}" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="dateofissue" class="form-label">Date Of Issue</label>
+                                            <input type="date" class="form-control dateofissue"
+                                                name="dateofissue[]"
+                                                value="{{ old('dateofissue', $foreign->dateofissue) }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="placeofissue" class="form-label">Place Of Issue</label>
+                                            <input type="text" class="form-control placeofissue"
+                                                name="placeofissue[]"
+                                                value="{{ old('placeofissue', $foreign->placeofissue) }}" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="dateofexpiry" class="form-label">Date Of Expiry</label>
+                                            <input type="date" class="form-control dateofexpiry"
+                                                name="dateofexpiry[]"
+                                                value="{{ old('dateofexpiry', $foreign->dateofexpiry) }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="dateofarrival" class="form-label">Date Of Arrival</label>
+                                            <input type="date" class="form-control dateofarrival"
+                                                name="dateofarrival[]"
+                                                value="{{ old('dateofarrival', $foreign->dateofarrival) }}" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="visano" class="form-label">Visa No</label>
+                                            <input type="text" class="form-control visano" name="visano[]"
+                                                value="{{ old('visano', $foreign->visano) }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="placeofvisaissue" class="form-label">Place Of Visa
+                                                Issue</label>
+                                            <input type="text" class="form-control placeofvisaissue"
+                                                name="placeofvisaissue[]"
+                                                value="{{ old('placeofvisaissue', $foreign->placeofvisaissue) }}"
+                                                required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="durationofstay" class="form-label">Duration Of
+                                                Stay</label>
+                                            <input type="text" class="form-control durationofstay"
+                                                name="durationofstay[]"
+                                                value="{{ old('durationofstay', $foreign->durationofstay) }}"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-3">
+                                        <label for="employeed" class="form-label">Employed In India?</label>
+                                        <select name="employeed[]" class="form-control employeed">
+                                            <option value="" disabled
+                                                {{ is_null($foreign->employeed) ? 'selected' : '' }}>Select
+                                                Employment Status</option>
+                                            <option value="yes"
+                                                {{ $foreign->employeed == 'yes' ? 'selected' : '' }}>Yes</option>
+                                            <option value="no"
+                                                {{ $foreign->employeed == 'no' ? 'selected' : '' }}>No</option>
+                                        </select>
+                                    </div>
+                                @endforeach
                             </div>
                         @endif
+
+
+                        <!-- Hidden template for cloning -->
+                        <div id="additionalFieldsTemplate" class="additionalFields" style="display: none;">
+                            <h5 class="mt-3" style="color:black;">Add Person</h5>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" class="form-control " name="guest_name[]">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="text" class="form-control " name="guest_phone[]">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Passport No</label>
+                                    <input type="text" class="form-control " name="passportno[]">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Date Of Issue</label>
+                                    <input type="date" class="form-control " name="dateofissue[]">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Place Of Issue</label>
+                                    <input type="text" class="form-control " name="placeofissue[]">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Date Of Expiry</label>
+                                    <input type="date" class="form-control " name="dateofexpiry[]">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Date Of Arrival</label>
+                                    <input type="date" class="form-control " name="dateofarrival[]">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Visa No</label>
+                                    <input type="text" class="form-control " name="visano[]">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Place Of Visa Issue</label>
+                                    <input type="text" class="form-control " name="placeofvisaissue[]">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Duration Of Stay</label>
+                                    <input type="text" class="form-control " name="durationofstay[]">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label class="form-label">Employed In India?</label>
+                                <select name="employeed[]" class="form-control ">
+                                    <option value="" selected>Select Employment Status</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+
                         <!-- Document Uploads -->
                         <div class="section-title p-2 fw-semibold fs-5 bg-light mb-3">
                             <span>Documents</span>
@@ -259,7 +353,7 @@
                             <button type="button" class="btn btn-secondary mt-2"
                                 onclick="clearCanvas()">Clear</button> --}}
                             {{-- <input type="hidden" name="vipdetails" id="vipdetails"> --}}
-                            <textarea class="form-control"  name="notes_text" rows="4"> {{ $guest->notes_text }}</textarea>
+                            <textarea class="form-control" name="notes_text" rows="4"> {{ $guest->notes_text }}</textarea>
                             {{-- 
                             <img id="vipSignatureImage"
                                 src="{{ $guest->vipdetails ? asset($guest->vipdetails) : '' }}"
@@ -277,6 +371,7 @@
         </div>
     </section>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 {{-- <script>
     const vipCanvas = document.getElementById('vipdetails-canvas');
@@ -347,5 +442,27 @@
         removeFileIcon.style.display = 'none';
     });
 </script> --}}
+<script>
+    $(document).ready(function() {
+        $("#addMore").click(function() {
+            let newFields = $("#additionalFieldsTemplate").clone().removeAttr('id').show();
+            newFields.find("input").val(""); 
+            newFields.find("select").prop("selectedIndex", 0); 
+            $("#additionalFieldsContainer").append(newFields);
+        });
+
+        $("form").submit(function() {
+          
+            $("#additionalFieldsTemplate").remove();
+
+           
+            $("input[name='guest_name[]'], input[name='guest_phone[]']").each(function() {
+                if ($(this).val().trim() === '') {
+                    $(this).closest('.row').remove(); 
+                }
+            });
+        });
+    });
+</script>
 
 </html>

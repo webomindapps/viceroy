@@ -8,6 +8,7 @@ use App\Models\Registration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Foreigners;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -73,6 +74,7 @@ class RegistrationController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $validated = $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
@@ -80,8 +82,16 @@ class RegistrationController extends Controller
             'nationality' => 'required|string|max:255',
 
         ]);
-
+        $lastGuest = Registration::latest()->first();
+        if ($lastGuest && preg_match('/GRC(\d+)/', $lastGuest->grc_id, $matches)) {
+            $newNumber = intval($matches[1]) + 1;
+        } else {
+            $newNumber = 1;
+        }
+        $grc_id = 'GRC' . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
+      
         $guest = Registration::create([
+            'grc_id' => $grc_id,
             'firstname' => $validated['firstname'],
             'lastname' => $validated['lastname'],
             'dob' => $request->dob,
@@ -95,17 +105,6 @@ class RegistrationController extends Controller
             'phone' => $validated['phone'],
             'nationality' => $validated['nationality'],
             'notes_text' => $request->notes_text,
-            'passportno' => $request->passportno,
-            'dateofissue' => $request->dateofissue,
-            'placeofissue' => $request->placeofissue,
-            'dateofexpiry' => $request->dateofexpiry,
-            'dateofarrival' => $request->dateofarrival,
-            'visano' => $request->visano,
-            'placeofvisaissue' => $request->placeofvisaissue,
-            'durationofstay' => $request->durationofstay,
-            'dateofvisaissue' => $request->dateofvisaissue,
-            'dateofvisaexpiry' => $request->dateofvisaexpiry,
-            'employeed' => $request->employeed,
             'roomno' => $request->roomno,
             'packno' => $request->packno,
             'mealplan' => $request->mealplan,
@@ -121,6 +120,31 @@ class RegistrationController extends Controller
                 ]);
             }
         }
+
+        if ($request->nationality !== 'Indian' && $request->filled('passportno')) {
+            foreach ($request->passportno as $key => $passportno) {
+                if (!empty($passportno) || !empty($request->visano[$key])) {
+                    Foreigners::create([
+                        'guest_id' => $guest->id,
+                        'passportno' => $passportno,
+                        'dateofissue' => $request->dateofissue[$key] ?? null,
+                        'placeofissue' => $request->placeofissue[$key] ?? null,
+                        'dateofexpiry' => $request->dateofexpiry[$key] ?? null,
+                        'dateofarrival' => $request->dateofarrival[$key] ?? null,
+                        'visano' => $request->visano[$key] ?? null,
+                        'placeofvisaissue' => $request->placeofvisaissue[$key] ?? null,
+                        'durationofstay' => $request->durationofstay[$key] ?? null,
+                        'dateofvisaissue' => $request->dateofvisaissue[$key] ?? null,
+                        'dateofvisaexpiry' => $request->dateofvisaexpiry[$key] ?? null,
+                        'employeed' => $request->employeed[$key] ?? null,
+                        'guest_name' => $request->guest_name[$key] ?? null,
+                        'guest_phone' => $request->guest_phone[$key] ?? null,
+                    ]);
+                }
+            }
+        }
+
+
 
         if ($request->filled('vipdetails')) {
             $vipSignature = $request->vipdetails;
@@ -204,7 +228,8 @@ class RegistrationController extends Controller
 
     public function editguests($id)
     {
-        $guest = Registration::with('documents')->findOrFail($id);
+        $guest = Registration::with('documents', 'foreigners')->findOrFail($id);
+
         return view('guest-edit', compact('guest'));
     }
     public function updateguests(Request $request, $id)
@@ -235,20 +260,52 @@ class RegistrationController extends Controller
             'roomno' => $request->roomno,
             'packno' => $request->packno,
             'mealplan' => $request->mealplan,
-            'passportno' => $request->passportno,
-            'dateofissue' => $request->dateofissue,
-            'placeofissue' => $request->placeofissue,
-            'dateofexpiry' => $request->dateofexpiry,
-            'dateofarrival' => $request->dateofarrival,
-            'visano' => $request->visano,
-            'placeofvisaissue' => $request->placeofvisaissue,
-            'durationofstay' => $request->durationofstay,
-            'employeed' => $request->employeed,
             'isvip' => $request->has('isvip') ? 1 : 0,
-
         ]);
 
-        if ($request->hasFile('image_url')) {
+        // Foreigners Data Handling
+        if ($request->nationality !== 'Indian' && $request->filled('passportno')) {
+            foreach ($request->passportno as $key => $passportno) {
+                $foreigner = Foreigners::where('guest_id', $guest->id)->skip($key)->first();
+
+                if ($foreigner) {
+                    // If record exists, update it
+                    $foreigner->update([
+                        'passportno' => $passportno,
+                        'dateofissue' => $request->dateofissue[$key],
+                        'placeofissue' => $request->placeofissue[$key],
+                        'dateofexpiry' => $request->dateofexpiry[$key],
+                        'dateofarrival' => $request->dateofarrival[$key],
+                        'visano' => $request->visano[$key],
+                        'placeofvisaissue' => $request->placeofvisaissue[$key],
+                        'durationofstay' => $request->durationofstay[$key],
+                        'employeed' => $request->employeed[$key],
+                        'guest_name' => $request->guest_name[$key],
+                        'guest_phone' => $request->guest_phone[$key],
+                    ]);
+                } else {
+                    // If no record exists, create a new one
+                    Foreigners::create([
+                        'guest_id' => $guest->id,
+                        'passportno' => $passportno,
+                        'dateofissue' => $request->dateofissue[$key],
+                        'placeofissue' => $request->placeofissue[$key],
+                        'dateofexpiry' => $request->dateofexpiry[$key],
+                        'dateofarrival' => $request->dateofarrival[$key],
+                        'visano' => $request->visano[$key],
+                        'placeofvisaissue' => $request->placeofvisaissue[$key],
+                        'durationofstay' => $request->durationofstay[$key],
+                        'employeed' => $request->employeed[$key],
+                        'guest_name' => $request->guest_name[$key],
+                        'guest_phone' => $request->guest_phone[$key],
+                    ]);
+                }
+            }
+        }
+
+
+        // Image Upload Handling
+        if ($request->hasFile('image_url') && is_array($request->file('image_url'))) {
             foreach ($request->file('image_url') as $file) {
                 $filePath = $file->store('guest_images', 'public');
                 Document::create([
@@ -258,6 +315,7 @@ class RegistrationController extends Controller
             }
         }
 
+        // VIP Signature Handling
         if ($request->filled('vipdetails')) {
             if ($guest->vipdetails) {
                 Storage::disk('public')->delete($guest->vipdetails);

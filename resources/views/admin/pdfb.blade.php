@@ -22,8 +22,8 @@
                                         height="60" />
                                 </td>
                                 <td style="width: 70%; font-size: 12px; color: #000; padding: 1px; text-align: right;">
-                                    <div>Date: {{ \Carbon\Carbon::parse($guests->datetime)->format('d-m-Y') }}</div>
-                                    <div>GRC No: {{ $guests->id }}</div>
+                                    <div>Date: {{ \Carbon\Carbon::parse($guests->guest->datetime)->format('d-m-Y') }}</div>
+                                    <div>GRC No: {{ $guests->guest->id }}</div>
                                 </td>
                             </tr>
                         </tbody>
@@ -66,7 +66,7 @@
                                                                 <td style="padding: 3px;">
                                                                     <input type="text"
                                                                         style="width: 100%; height: 20px; font-size: 10px;"
-                                                                        value="{{ strtoupper($guests->lastname . ' ' . $guests->firstname) }}"
+                                                                        value="{{ strtoupper($guests->guest_name) }}"
                                                                         readonly>
                                                                 </td>
                                                             </tr>
@@ -77,7 +77,7 @@
                                                                 <td style="padding: 3px;">
                                                                     <input type="text"
                                                                         style="width: 100%; height: 20px; font-size: 10px;"
-                                                                        value="{{ $guests->nationality }}" readonly>
+                                                                        value="{{ $guests->guest->nationality }}" readonly>
                                                                 </td>
                                                             </tr>
                                                             <tr style="color: #484848;">
@@ -98,7 +98,7 @@
                                                                 <td style="padding: 3px;">
                                                                     <input type="text"
                                                                         style="width: 100%; height: 20px; font-size: 10px;"
-                                                                        value="{{ $guests->address }}" readonly>
+                                                                        value="{{ $guests->guest->address }}" readonly>
                                                                 </td>
                                                             </tr>
                                                             <tr style="color: #484848;">
@@ -108,7 +108,7 @@
                                                                 <td style="padding: 3px;">
                                                                     <input type="text"
                                                                         style="width: 100%; height: 20px; font-size: 10px;"
-                                                                        value="{{ \Carbon\Carbon::parse($guests->dateofarrival)->format('d-m-Y') }}"
+                                                                        value="{{ \Carbon\Carbon::parse($guests->guest->dateofarrival)->format('d-m-Y') }}"
                                                                         readonly>
                                                                 </td>
                                                             </tr>
@@ -139,7 +139,7 @@
                                                                 <td style="padding: 3px;">
                                                                     <input type="text"
                                                                         style="width: 100%; height: 20px; font-size: 10px;"
-                                                                        value="{{ $guests->arrivingfrom }}" readonly>
+                                                                        value="{{ $guests->guest->arrivingfrom }}" readonly>
                                                                 </td>
                                                             </tr>
                                                             <tr style="color: #484848;">
@@ -149,7 +149,7 @@
                                                                 <td style="padding: 3px;">
                                                                     <input type="text"
                                                                         style="width: 100%; height: 20px; font-size: 10px;"
-                                                                        value="{{ $guests->purposeofvisit }}" readonly>
+                                                                        value="{{ $guests->guest->purposeofvisit }}" readonly>
                                                                 </td>
                                                             </tr>
                                                             <tr style="color: #484848;">
@@ -159,7 +159,7 @@
                                                                 <td style="padding: 3px;">
                                                                     <input type="text"
                                                                         style="width: 100%; height: 20px; font-size: 10px;"
-                                                                        value="{{ $guests->depaturedate }}" readonly>
+                                                                        value="{{ $guests->guest->depaturedate }}" readonly>
                                                                 </td>
                                                             </tr>
                                                             <tr style="color: #484848;">
@@ -169,7 +169,7 @@
                                                                 <td style="padding: 3px;">
                                                                     <input type="text"
                                                                         style="width: 100%; height: 20px; font-size: 10px;"
-                                                                        value="{{ $guests->address }}" readonly>
+                                                                        value="{{ $guests->guest->address }}" readonly>
                                                                 </td>
                                                             </tr>
                                                             <tr style="color: #484848;">
@@ -177,7 +177,7 @@
                                                                     <strong>User Signature</strong>
                                                                 </td>
                                                                 <td style="padding: 3px;">
-                                                                    <img src="{{ public_path( $guests->signature_image_url) }}"
+                                                                    <img src="{{ public_path( $guests->guest->signature_image_url) }}"
                                                                         height="60" />
                                                                 </td>
                                                             </tr>
@@ -186,7 +186,7 @@
                                                                     <strong>Manager Signature</strong>
                                                                 </td>
                                                                 <td style="padding: 3px;">
-                                                                    <img src="{{ public_path($guests->manager_signature_image_url) }}"
+                                                                    <img src="{{ public_path($guests->guest->manager_signature_image_url) }}"
                                                                         height="60" />
                                                                 </td>
 

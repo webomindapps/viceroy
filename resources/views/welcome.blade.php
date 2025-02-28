@@ -232,7 +232,7 @@
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="form-floating">
-                                                        <input type="number" name="roomno" class="form-control"
+                                                        <input type="text" name="roomno" class="form-control"
                                                             id="roomno" placeholder="Room no" autocomplete="off">
                                                         <label for="Roomno">Room No</label>
                                                     </div>
@@ -298,135 +298,167 @@
                                             value="Next" />
                                     </fieldset>
                                     <fieldset>
-                                        <div id="additionalFields" style="display: none;">
-                                            <div class="row mt-2">
-                                                <h5 class="foreignheading">For Foreign Nationals Only</h3>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="form-floating">
-                                                        <input type="number" name="passportno" class="form-control"
-                                                            id="passportno" placeholder="Passport Number"
-                                                            autocomplete="off">
-                                                        <label for="passportno">Passport Number<span
-                                                                style="color: red;">*</span></label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="form-floating">
-                                                        <input type="text" name="dateofissue" class="form-control"
-                                                            placeholder="MM/DD/YYYY" onfocus="(this.type='date')"
-                                                            onblur="(this.type='text')" id="dateofissue"
-                                                            autocomplete="off">
-                                                        <label for="dateofissue">Date of Issue<span
-                                                                style="color: red;">*</span></label>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="text-end">
+                                            <button type="button" id="addMore" class="btn btn-primary">Add
+                                                Person</button>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <h5 class="foreignheading">For Foreign Nationals Only</h3>
+                                        </div>
+                                        <div id="additionalFieldsContainer">
 
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="form-floating">
-                                                        <input type="text" name="placeofissue"
-                                                            class="form-control" id="placeofissue"
-                                                            placeholder="Place of Issue" autocomplete="off">
-                                                        <label for="placeofissue">Place of Issue<span
-                                                                style="color: red;">*</span></label>
+                                            <div id="additionalFields" style="display: none;">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-floating">
+                                                            <input type="text" name="guest_name[]"
+                                                                class="form-control text-uppercase" placeholder="Name"
+                                                                autocomplete="off">
+                                                            <label>Name</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-floating">
+                                                            <input type="text" name="guest_phone[]"
+                                                                class="form-control" placeholder="Phone Number"
+                                                                autocomplete="off">
+                                                            <label>Phone Number</label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="form-floating">
-                                                        <input type="text" name="dateofexpiry"
-                                                            class="form-control" placeholder="MM/DD/YYYY"
-                                                            onfocus="(this.type='date')" onblur="(this.type='text')"
-                                                            id="dateofexpiry" autocomplete="off">
-                                                        <label for="dateofexpiry">Date of Expiry<span
-                                                                style="color: red;">*</span></label>
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-floating">
+                                                            <input type="number" name="passportno[]"
+                                                                class="form-control" id="passportno"
+                                                                placeholder="Passport Number" autocomplete="off">
+                                                            <label for="passportno">Passport Number<span
+                                                                    style="color: red;">*</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-floating">
+                                                            <input type="text" name="dateofissue[]"
+                                                                class="form-control" placeholder="MM/DD/YYYY"
+                                                                onfocus="(this.type='date')"
+                                                                onblur="(this.type='text')" id="dateofissue"
+                                                                autocomplete="off">
+                                                            <label for="dateofissue">Date of Issue<span
+                                                                    style="color: red;">*</span></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="row">
-                                                <!-- Third Row -->
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="form-floating">
-                                                        <input type="text" name="dateofarrival"
-                                                            class="form-control" placeholder="MM/DD/YYYY"
-                                                            onfocus="(this.type='date')" onblur="(this.type='text')"
-                                                            id="dateofarrival" autocomplete="off">
-                                                        <label for="dateofarrival">Date of Arrival In
-                                                            India<span style="color: red;">*</span></label>
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-floating">
+                                                            <input type="text" name="placeofissue[]"
+                                                                class="form-control" id="placeofissue"
+                                                                placeholder="Place of Issue" autocomplete="off">
+                                                            <label for="placeofissue">Place of Issue<span
+                                                                    style="color: red;">*</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-floating">
+                                                            <input type="text" name="dateofexpiry[]"
+                                                                class="form-control" placeholder="MM/DD/YYYY"
+                                                                onfocus="(this.type='date')"
+                                                                onblur="(this.type='text')" id="dateofexpiry"
+                                                                autocomplete="off">
+                                                            <label for="dateofexpiry">Date of Expiry<span
+                                                                    style="color: red;">*</span></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="form-floating">
-                                                        <input type="number" name="visano" class="form-control"
-                                                            id="visano" placeholder="Visa Number"
-                                                            autocomplete="off">
-                                                        <label for="visano">Visa Number<span
-                                                                style="color: red;">*</span></label>
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                            <div class="row">
-                                                <!-- Fourth Row -->
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="form-floating">
-                                                        <input type="text" name="placeofvisaissue"
-                                                            class="form-control" id="placeofvisaissue"
-                                                            placeholder="Place of Visa Issue" autocomplete="off">
-                                                        <label for="placeofvisaissue">Place of Visa
-                                                            Issue<span style="color: red;">*</span></label>
+                                                <div class="row">
+                                                    <!-- Third Row -->
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-floating">
+                                                            <input type="text" name="dateofarrival[]"
+                                                                class="form-control" placeholder="MM/DD/YYYY"
+                                                                onfocus="(this.type='date')"
+                                                                onblur="(this.type='text')" id="dateofarrival"
+                                                                autocomplete="off">
+                                                            <label for="dateofarrival">Date of Arrival In
+                                                                India<span style="color: red;">*</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-floating">
+                                                            <input type="number" name="visano[]"
+                                                                class="form-control" id="visano"
+                                                                placeholder="Visa Number" autocomplete="off">
+                                                            <label for="visano">Visa Number<span
+                                                                    style="color: red;">*</span></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="form-floating">
-                                                        <input type="text" name="durationofstay"
-                                                            class="form-control" id="durationofstay"
-                                                            placeholder="Duration Of Stay" autocomplete="off">
-                                                        <label for="durationofstay">Duration Of Stay<span
-                                                                style="color: red;">*</span></label>
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                            <div class="row">
-                                                <!-- Fifth Row -->
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="form-floating">
-                                                        <input type="text" name="dateofvisaissue"
-                                                            class="form-control" placeholder="MM/DD/YYYY"
-                                                            onfocus="(this.type='date')" onblur="(this.type='text')"
-                                                            id="dateofvisaissue" autocomplete="off">
-                                                        <label for="dateofvisaissue">Date of Visa Issue<span
-                                                                style="color: red;">*</span></label>
+                                                <div class="row">
+                                                    <!-- Fourth Row -->
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-floating">
+                                                            <input type="text" name="placeofvisaissue[]"
+                                                                class="form-control" id="placeofvisaissue"
+                                                                placeholder="Place of Visa Issue" autocomplete="off">
+                                                            <label for="placeofvisaissue">Place of Visa
+                                                                Issue<span style="color: red;">*</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-floating">
+                                                            <input type="text" name="durationofstay[]"
+                                                                class="form-control" id="durationofstay"
+                                                                placeholder="Duration Of Stay" autocomplete="off">
+                                                            <label for="durationofstay">Duration Of Stay<span
+                                                                    style="color: red;">*</span></label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="form-floating">
-                                                        <input type="text" name="dateofvisaexpiry"
-                                                            class="form-control" placeholder="MM/DD/YYYY"
-                                                            onfocus="(this.type='date')" onblur="(this.type='text')"
-                                                            id="dateofvisaexpiry" autocomplete="off">
-                                                        <label for="dateofvisaexpiry">Date of Visa
-                                                            Expiry<span style="color: red;">*</span></label>
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                            <div class="row">
-                                                <!-- Sixth Row -->
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="form-floating">
-                                                        <select name="employeed" class="form-control" id="employeed">
-                                                            <option value="" disabled selected>Employed in India
-                                                            </option>
-                                                            <option value="yes">Yes</option>
-                                                            <option value="no">No</option>
-                                                        </select>
-                                                        <label for="employeed">Employed in India<span
-                                                                style="color: red;">*</span></label>
+                                                <div class="row">
+                                                    <!-- Fifth Row -->
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-floating">
+                                                            <input type="text" name="dateofvisaissue[]"
+                                                                class="form-control" placeholder="MM/DD/YYYY"
+                                                                onfocus="(this.type='date')"
+                                                                onblur="(this.type='text')" id="dateofvisaissue"
+                                                                autocomplete="off">
+                                                            <label for="dateofvisaissue">Date of Visa Issue<span
+                                                                    style="color: red;">*</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-floating">
+                                                            <input type="text" name="dateofvisaexpiry[]"
+                                                                class="form-control" placeholder="MM/DD/YYYY"
+                                                                onfocus="(this.type='date')"
+                                                                onblur="(this.type='text')" id="dateofvisaexpiry"
+                                                                autocomplete="off">
+                                                            <label for="dateofvisaexpiry">Date of Visa
+                                                                Expiry<span style="color: red;">*</span></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <!-- Sixth Row -->
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-floating">
+                                                            <select name="employeed[]" class="form-control"
+                                                                id="employeed">
+                                                                <option value="" disabled selected>Employed in
+                                                                    India
+                                                                </option>
+                                                                <option value="yes">Yes</option>
+                                                                <option value="no">No</option>
+                                                            </select>
+                                                            <label for="employeed">Employed in India<span
+                                                                    style="color: red;">*</span></label>
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -602,6 +634,8 @@
                                                         </button>
                                                     </div>
                                                 </div>
+                                                <p id="signatureError" style="color: black; display: none;"></p>
+
 
                                                 <!-- Manager Signature Section -->
                                                 <div class="col-lg-6 mt-4 mdl_content_2">
@@ -625,6 +659,8 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <p id="managerSignatureError" style="color: black; display: none;"></p>
+
                                             <input type="hidden" name="signature_image_url" id="signature">
                                             <input type="hidden" name="manager_signature_image_url"
                                                 id="manager_signature">
@@ -994,6 +1030,24 @@
                         $("#rulesError").show();
                     }
                 }
+                if (current_fs.is("fieldset:has(#signature, #manager_signature)")) {
+                    var userSignature = $("#signature").val().trim();
+                    var managerSignature = $("#manager_signature").val().trim();
+
+                    $("#signatureError").hide();
+                    $("#managerSignatureError").hide();
+
+                    if (!userSignature) {
+                        isValid = false;
+                        $("#signatureError").text("Please provide the user signature").show();
+                    }
+
+                    if (!managerSignature) {
+                        isValid = false;
+                        $("#managerSignatureError").text("Please provide the manager signature").show();
+                    }
+                }
+
                 if (current === 2) {
                     var passportNo = current_fs.find("#passportno").val();
                     var visaNo = current_fs.find("#visano").val();
@@ -1077,6 +1131,8 @@
                         );
                     }
                 }
+
+
                 if (!isValid) {
                     e.preventDefault();
                     return;
@@ -1184,7 +1240,6 @@
             $("#submitButton").click(function(e) {
                 e.preventDefault();
                 var isFormValid = true;
-
                 $("fieldset").each(function() {
                     var fieldset = $(this);
 
@@ -1194,6 +1249,9 @@
                                 isFormValid = false;
                             }
                         });
+
+
+
 
                     var phone = fieldset.find("#phone").val();
                     if (phone && !/^\d{10}$/.test(phone)) {
@@ -1209,6 +1267,25 @@
                             "#flexCheckChecked_2").is(":checked")) {
                         isFormValid = false;
                     }
+                    if (current_fs.is("fieldset:has(#signature, #manager_signature)")) {
+                        var userSignature = $("#signature").val().trim();
+                        var managerSignature = $("#manager_signature").val().trim();
+
+                        $("#signatureError").hide();
+                        $("#managerSignatureError").hide();
+
+                        if (!userSignature) {
+                            isFormValid = false;
+                            $("#signatureError").text("Please provide the user signature").show();
+                        }
+
+                        if (!managerSignature) {
+                            isFormValid = false;
+                            $("#managerSignatureError").text("Please provide the manager signature")
+                                .show();
+                        }
+                    }
+
                 });
 
                 if (isFormValid) {
@@ -1533,6 +1610,45 @@
         // Attach event listeners to calculate duration when inputs change
         document.getElementById('datetime').addEventListener('change', calculateDuration);
         document.getElementById('depaturedate').addEventListener('change', calculateDuration);
+    </script>
+    <script>
+        document.getElementById("addMore").addEventListener("click", function() {
+            var container = document.getElementById("additionalFieldsContainer");
+            var originalFields = document.getElementById("additionalFields");
+            var clonedFields = originalFields.cloneNode(true);
+
+            clonedFields.querySelectorAll("input, select").forEach(function(input) {
+                if (input.type !== "button") input.value = "";
+            });
+
+            var addPersonHeading = `<h5 class="mt-3" style="color:white;">Add Person</h5>`;
+
+
+            // Insert heading and additional fields at the beginning of the cloned section
+            clonedFields.innerHTML = addPersonHeading + clonedFields.innerHTML;
+
+            // // Add remove button if not already present
+            // if (!clonedFields.querySelector(".remove-field")) {
+            //     var removeBtn = document.createElement("button");
+            //     removeBtn.type = "button";
+            //     removeBtn.className = "btn btn-danger remove-field mt-2";
+            //     removeBtn.textContent = "Remove";
+            //     removeBtn.addEventListener("click", function() {
+            //         clonedFields.remove();
+            //     });
+            //     clonedFields.appendChild(removeBtn);
+            // }
+
+            // Append to container
+            container.appendChild(clonedFields);
+        });
+
+        // // Add remove functionality for the first instance (if needed)
+        // document.addEventListener("click", function(event) {
+        //     if (event.target.classList.contains("remove-field")) {
+        //         event.target.closest(".additionalFields").remove();
+        //     }
+        // });
     </script>
 </body>
 

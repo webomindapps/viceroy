@@ -11,6 +11,7 @@ class Registration extends Model
     use HasFactory;
     protected $table = 'guest_registration';
     protected $fillable = [
+        'grc_id',
         'firstname',
         'lastname',
         'dob',
@@ -46,5 +47,9 @@ class Registration extends Model
     public function documents()
     {
         return $this->hasMany(Document::class, 'guest_id');
+    }
+    public function foreigners()
+    {
+        return $this->hasMany(Foreigners::class, 'guest_id');
     }
 }

@@ -8,12 +8,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Exports\GuestExport;
 use App\Models\Document;
+use App\Models\Foreigners;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use ZipArchive;
 
 class LoginController extends Controller
 {
@@ -87,7 +88,7 @@ class LoginController extends Controller
 
     public function editguests($id)
     {
-        $guest = Registration::with('documents')->findOrFail($id);
+        $guest = Registration::with('documents','foreigners')->findOrFail($id);
         return view('admin.edit-guests', compact('guest'));
     }
     public function updateguests(Request $request, $id)
@@ -129,19 +130,48 @@ class LoginController extends Controller
             'roomno' => $request->roomno,
             'packno' => $request->packno,
             'mealplan' => $request->mealplan,
-            'passportno' => $request->passportno,
-            'dateofissue' => $request->dateofissue,
-            'placeofissue' => $request->placeofissue,
-            'dateofexpiry' => $request->dateofexpiry,
-            'dateofarrival' => $request->dateofarrival,
-            'visano' => $request->visano,
-            'placeofvisaissue' => $request->placeofvisaissue,
-            'durationofstay' => $request->durationofstay,
-            'employeed' => $request->employeed,
             'isvip' => $request->has('isvip') ? 1 : 0,
 
 
         ]);
+        if ($request->nationality !== 'Indian' && $request->has('passportno')) {
+            foreach ($request->passportno as $key => $passportno) {
+                $foreigner = Foreigners::where('guest_id', $guest->id)->skip($key)->first();
+        
+                if ($foreigner) {
+                    // If record exists, update it
+                    $foreigner->update([
+                        'passportno' => $passportno,
+                        'dateofissue' => $request->dateofissue[$key],
+                        'placeofissue' => $request->placeofissue[$key],
+                        'dateofexpiry' => $request->dateofexpiry[$key],
+                        'dateofarrival' => $request->dateofarrival[$key],
+                        'visano' => $request->visano[$key],
+                        'placeofvisaissue' => $request->placeofvisaissue[$key],
+                        'durationofstay' => $request->durationofstay[$key],
+                        'employeed' => $request->employeed[$key],
+                        'guest_name' => $request->guest_name[$key],
+                        'guest_phone' => $request->guest_phone[$key],
+                    ]);
+                } else {
+                    // If no record exists, create a new one
+                    Foreigners::create([
+                        'guest_id' => $guest->id,
+                        'passportno' => $passportno,
+                        'dateofissue' => $request->dateofissue[$key],
+                        'placeofissue' => $request->placeofissue[$key],
+                        'dateofexpiry' => $request->dateofexpiry[$key],
+                        'dateofarrival' => $request->dateofarrival[$key],
+                        'visano' => $request->visano[$key],
+                        'placeofvisaissue' => $request->placeofvisaissue[$key],
+                        'durationofstay' => $request->durationofstay[$key],
+                        'employeed' => $request->employeed[$key],
+                        'guest_name' => $request->guest_name[$key],
+                        'guest_phone' => $request->guest_phone[$key],
+                    ]);
+                }
+            }
+        }
 
         if ($request->hasFile('image_url')) {
             foreach ($request->file('image_url') as $file) {
@@ -231,16 +261,33 @@ class LoginController extends Controller
 
     public function downloadformb($id)
     {
-        $guests = Registration::with('documents')->find($id);
+        $foreigners = foreigners::with('guest')->where('guest_id',$id)->get();
 
-        if (!$guests) {
-            return redirect()->back()->with('error', 'Guest not found.');
+        $zipFileName = 'Form B' . now()->timestamp . '.zip';
+        $zipPath = storage_path('app/' . $zipFileName);
+
+        $zip = new ZipArchive;
+        if ($zip->open($zipPath, ZipArchive::CREATE) === TRUE) {
+            foreach ($foreigners as $guest) { // Note: changed $guests to $guest for singular reference
+                $pdf = Pdf::loadView('admin.pdfb', ['guests' => $guest]); // Ensure 'guests' matches the variable used in the Blade view
+                $pdfPath = storage_path('app/temp/form_b_' . $guest->id . '.pdf');
+                if (!file_exists(storage_path('app/temp'))) {
+                    mkdir(storage_path('app/temp'), 0755, true);
+                }
+
+                $pdf->save($pdfPath);
+                $zip->addFile($pdfPath, 'Form_B_' . $guest->id . '.pdf');
+            }
+
+            $zip->close();
+
+            foreach ($foreigners as $guests) {
+                unlink(storage_path('app/temp/form_b_' . $guests->id . '.pdf'));
+            }
+
+            return response()->download($zipPath)->deleteFileAfterSend(true);
+        } else {
+            return redirect()->back()->with('error', 'Failed to generate the zip file.');
         }
-
-        $pdf = Pdf::loadView('admin.pdfb', [
-            'guests' => $guests,
-        ]);
-
-        return $pdf->stream('Guests.pdf');
     }
 }

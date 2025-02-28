@@ -175,7 +175,7 @@
                     Date: {{ \Carbon\Carbon::parse($guests->datetime)->format('d-m-Y') }}
                 </div>
                 <div class="date-container">
-                    GRC No: {{ $guests->id }}
+                    GRC No: {{ $guests->grc_id }}
                 </div>
             </div>
             <table style="padding: 0;">

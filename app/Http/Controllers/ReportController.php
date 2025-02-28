@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 namespace App\Http\Controllers;
 
+use App\Models\Foreigners;
 use Illuminate\Http\Request;
 use App\Models\Registration;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
@@ -32,8 +33,8 @@ class ReportController extends Controller
         $fromDate = $request->from_date;
         $toDate = $request->to_date;
 
-        $foreigners = Registration::where('nationality', '!=', 'India')
-            ->whereBetween('datetime', [$fromDate, $toDate])
+        $foreigners = Foreigners::with('guest')
+            ->whereBetween('created_at', [$fromDate, $toDate])
             ->get();
 
         if ($foreigners->isEmpty()) {
